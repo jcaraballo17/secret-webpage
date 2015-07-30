@@ -15,7 +15,7 @@
   <div class="row top-navbar">
     <div class="navbar-header">
       <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#topnav-toggle-button"> <span class="sr-only">Toggle navigation</span> <span class="icon-bar"></span> <span class="icon-bar"></span> <span class="icon-bar"></span> </button>
-      <a class="navbar-brand" href="#">WOODY SHEPERD</a> </div>
+      <a class="navbar-brand" href="#">WOODY SHEPHERD</a> </div>
     <div class="collapse navbar-collapse" id="topnav-toggle-button">
       <ul class="nav navbar-nav navbar-right">
         <li><a href="#">WORKS</a></li>
@@ -28,14 +28,15 @@
 </div>
 
 <!--JUMBOTRON - BACKGROUND + CONTENT-->
-<div class="jumbotron home_background">
+<div class="jumbotron home-background">
   <div class="container">
     <div class="row">
-      <div class="col-md-5 home_announcement">
-        <h4><a href="#">Announcement Title</a></h4>
-        <p class="announcementdate">12/12/2015</p>
+      <div class="col-md-5 home-announcement">
+        <h4 class="announcement-title"><a href="#">Announcement Title</a></h4>
+        <span class="announcement-date">(12/12/2015)</span>
         <p class="small">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque sodales posuere neque. Morbi placerat luctus erat. Mauris iaculis sagittis aliquam. Praesent vehicula justo vitae pharetra eleifend.</p>
         <p class="small"><a href="#">Read More...</a></p>
+        <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
       </div>
     </div>
   </div>
@@ -56,5 +57,15 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script> 
 <!-- Include all compiled plugins (below), or include individual files as needed --> 
 <script src="js/bootstrap.min.js"></script>
+<script>
+    $(document).ready(function(){
+		var bgurl = Math.floor(Math.random() * 3) + 1; //bgurl
+		bgurl = "url('img/main_background_"+bgurl+".jpg')";
+		$('.home-background').css('background-image', bgurl);
+		$('.glyphicon-remove').click(function(){
+			$('.home-announcement').css("display","none");
+		});
+    });
+  </script>
 </body>
 </html>

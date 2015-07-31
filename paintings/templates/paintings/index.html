@@ -3,17 +3,13 @@
 {% block content %}
     <!--JUMBOTRON - BACKGROUND + CONTENT-->
     <div class="jumbotron home-background">
-      <div class="container">
-        <div class="row">
-          <div class="col-md-5 home-announcement">
-            <h4 class="announcement-title"><a href="#">Announcement Title</a></h4>
-            <span class="announcement-date">(12/12/2015)</span>
-            <p class="small">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque sodales posuere neque. Morbi placerat luctus erat. Mauris iaculis sagittis aliquam. Praesent vehicula justo vitae pharetra eleifend.</p>
-            <p class="small"><a href="#">Read More...</a></p>
-            <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
-          </div>
+        <div class="container">
+            <div class="row">
+                {% if announcement %}
+                    {% include 'paintings/snippets/announcemets.html' %}
+                {% endif %}
+            </div>
         </div>
-      </div>
     </div>
 {% endblock %}
 

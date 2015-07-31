@@ -1,3 +1,7 @@
 from django.contrib import admin
+from paintings.models import Announcement
 
-# Register your models here.
+
+@admin.register(Announcement)
+class AnnouncementsAdmin(admin.ModelAdmin):
+    pass

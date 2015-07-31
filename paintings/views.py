@@ -12,3 +12,10 @@ class PieceView(DetailView):
 
     def get_object(self, queryset=None):
         return None
+
+
+class WorksView(ListView):
+    template_name = 'paintings/works.html'
+
+    def get_queryset(self):
+        return []

@@ -1,0 +1,58 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>Woody Shepherd</title>
+        {% block styles %}
+            <link href="{% static 'paintings/css/bootstrap.css' %}" rel="stylesheet">
+            <link href="{% static 'paintings/css/style.css' %}" rel="stylesheet">
+        {% endblock %}
+    </head>
+
+    <body>
+
+        {% block navigation %}
+            <!--TOPBAR-->
+            <div class="container">
+              <div class="row top-navbar">
+                <div class="navbar-header">
+                  <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#topnav-toggle-button"> <span class="sr-only">Toggle navigation</span> <span class="icon-bar"></span> <span class="icon-bar"></span> <span class="icon-bar"></span> </button>
+                  <a class="navbar-brand" href="{% url 'home' %}">WOODY SHEPHERD</a> </div>
+                <div class="collapse navbar-collapse" id="topnav-toggle-button">
+                  <ul class="nav navbar-nav navbar-right">
+                    <li><a href="#">WORKS</a></li>
+                    <li><a href="#">WORDS</a></li>
+                    <li><a href="#">CONTACT</a></li>
+                    <li><a href="#">SHOP</a></li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+        {% endblock %}
+
+        {% block content %}
+
+        {% endblock %}
+
+        {% block footer %}
+            <!--FOOTER-->
+            <footer class="footer">
+              <div class="container">
+                <div class="row">
+                  <div class="col-md-12">
+                    <p>Copyright Woody Shepherd @ 2015</p>
+                  </div>
+                </div>
+              </div>
+            </footer>
+        {% endblock %}
+
+        {% block scripts %}
+            <script src="{% static 'paintings/js/libraries/jquery-1.11.3.min.js' %}"></script>
+            <script src="{% static 'paintings/js/libraries/bootstrap.min.js' %}"></script>
+        {% endblock %}
+    </body>
+</html>

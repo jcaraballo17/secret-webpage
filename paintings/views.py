@@ -15,6 +15,11 @@ class HomeView(TemplateView):
         return context
 
 
+class AnnouncementView(DetailView):
+    model = Announcement
+    template_name = "paintings/announcement.html"
+
+
 class PieceView(DetailView):
     template_name = "paintings/piece.html"
 

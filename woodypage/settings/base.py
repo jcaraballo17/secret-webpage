@@ -22,6 +22,7 @@ SECRET_KEY = data["secret_key"]
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
+DEPLOYED = False
 
 TEMPLATE_DEBUG = True
 
@@ -38,6 +39,7 @@ INSTALLED_APPS = (
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django_cleanup',
     'paintings',
 )
 
@@ -96,3 +98,7 @@ USE_I18N = True
 USE_L10N = True
 
 USE_TZ = True
+
+MEDIA_ROOT = ''
+
+MEDIA_URL = ''

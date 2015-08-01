@@ -13,9 +13,14 @@ Including another URLconf
     1. Add an import:  from blog import urls as blog_urls
     2. Add a URL to urlpatterns:  url(r'^blog/', include(blog_urls))
 """
+from django.conf.urls.static import static
 from django.conf.urls import include, url
+from django.conf import settings
 from django.contrib import admin
+
+
 from paintings.views import HomeView, PieceView, WorksView
+
 
 urlpatterns = [
     url(r'^$', HomeView.as_view(), name='home'),
@@ -23,3 +28,6 @@ urlpatterns = [
     url(r'^piece/(?P<pk>[-\w]+)$', PieceView.as_view(), name='piece'),
     url(r'^admin/', include(admin.site.urls)),
 ]
+
+if not settings.DEPLOYED:
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

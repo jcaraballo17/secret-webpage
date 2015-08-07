@@ -3,11 +3,14 @@ html, body {
 	font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
 	height: 100%;
 	color: rgb(0,0,0);
+	-webkit-font-smoothing: antialiased;
+	-webkit-text-shadow: rgba(0,0,0,.01) 0 0 1px;
+	text-shadow: rgba(0,0,0,.01) 0 0 1px;
 }
 @media (min-width: 1200px) {
-  .container {
-    width: 968px;
-  }
+	.container {
+		width: 968px;
+	}
 }
 h1 {
 	font-size: 2em;
@@ -30,35 +33,31 @@ h5 {
 h6 {
 	font-size: .75em;
 }
-h1 a, h1 a:link, h1 a:active, h1 a:link, h1 a:hover, 
-h2 a, h2 a:link, h2 a:active, h2 a:link, h2 a:hover, 
-h3 a, h3 a:link, h3 a:active, h3 a:link, h3 a:hover, 
-h4 a, h4 a:link, h4 a:active, h4 a:link, h4 a:hover, 
-h5 a, h5 a:link, h5 a:active, h5 a:link, h5 a:hover, 
-h6 a, h6 a:link, h6 a:active, h6 a:link, h6 a:hover {
+h1 a, h1 a:link, h1 a:active, h1 a:link, h1 a:hover, h2 a, h2 a:link, h2 a:active, h2 a:link, h2 a:hover, h3 a, h3 a:link, h3 a:active, h3 a:link, h3 a:hover, h4 a, h4 a:link, h4 a:active, h4 a:link, h4 a:hover, h5 a, h5 a:link, h5 a:active, h5 a:link, h5 a:hover, h6 a, h6 a:link, h6 a:active, h6 a:link, h6 a:hover {
 	text-decoration: none;
 }
 a, a:link, a:active, a:visited {
 	color: rgb(0,0,0);
 	-webkit-transition: ease-in .15s;
-    -moz-transition: ease-in .15s;
-    -o-transition: ease-in .15s;
+	-moz-transition: ease-in .15s;
+	-o-transition: ease-in .15s;
 	transition: ease-in .15s;
 }
 a:hover, a:focus {
 	color: rgb(100,100,100);
 	text-decoration: none;
 }
-
-p a, p a:link, p a:active, p a:visited{
+p a, p a:link, p a:active, p a:visited {
 	border-bottom: 1px solid rgb(0,0,0);
-	}
-	
-p a:hover{
+}
+p a:hover {
 	border-bottom: 1px solid rgb(120,120,120);
-	}
+}
+hr {
+	border-color: rgb(100,100,100);
+}
 
-/* TYPE STYLE */
+/* TYPOGRAPHY STYLES */
 .text-italic {
 	font-style: italic;
 }
@@ -73,41 +72,41 @@ p a:hover{
 .top-navbar {
 	margin: 30px 0;
 }
-.nav > li{
+.nav > li {
 	margin-right: 45px;
-	}
-.nav > li:last-child{
+}
+.nav > li:last-child {
 	margin-right: 0;
-	}
-.nav > li > a{
+}
+.nav > li > a {
 	font-weight: 700;
-	}
+}
 .nav > li > a:hover, .nav > li > a:focus {
 	background: none;
 	font-weight: bold;
 	border-bottom: 0px solid rgb(100,100,100);
 }
-.navbar-nav > li > a{
+.navbar-nav > li > a {
 	/*margin-top: 21px;*/
 	margin-top: 3px;
 	padding: 0;
-	}
+}
 .navbar-brand {
 	font-weight: bold;
 	letter-spacing: .02em;
 	/*margin-top: 18px;*/
 	padding: 0;
-	height:auto;
+	height: auto;
 }
 .navbar-brand:hover {
 	border-bottom: none;
-	}
-#topnav-toggle-button{
+}
+#topnav-toggle-button {
 	margin-top: -45px;
-	}
-.icon-bar{
+}
+.icon-bar {
 	background-color: rgb(0,0,0);
-	}
+}
 footer, .footer {
 	margin-top: 15px;
 	font-size: 11px;
@@ -124,7 +123,7 @@ footer, .footer {
 	min-width: 100%;
 	min-height: 85%;
 	overflow: hidden;
-	position:relative;
+	position: relative;
 }
 .home-background img {
 	position: fixed;
@@ -139,57 +138,56 @@ footer, .footer {
 	padding-top: 3px;
 	padding-bottom: 5px;
 }
-.home-announcement p{
+.home-announcement p {
 	font-size: 1em;
-	}
+}
 .home-announcement a, .home-announcement a:link, .home-announcement a:active, .home_announcement a:visited {
 	color: #ffffff;
 }
 .home-announcement a:hover {
 	color: rgb(120,120,120);
 }
-.announcement-title{
+.announcement-title {
 	display: inline-block;
-	}
+}
 .announcement-date {
 	display: inline-block;
 	font-size: .8em;
 }
-.home-announcement .glyphicon-remove{
+.home-announcement .glyphicon-remove {
 	position: absolute;
 	top: 10px;
 	right: 10px;
-	}
-.home-announcement .glyphicon-remove:hover{
+}
+.home-announcement .glyphicon-remove:hover {
 	color: rgb(120,120,120);
 	cursor: pointer;
-	}
-
+}
 
 /* WORKS + GALLERY */
-.nav-page-categories{
+.nav-page-category {
 	list-style: none;
 	padding-left: 0;
 	font-weight: 500;
 	text-align: center;
 	margin-bottom: 15px;
-	}
-	
-.nav-page-categories li{
+}
+.nav-page-category li {
 	display: inline;
 	margin-right: 15px;
-	}
-	
-.nav-page-categories li:after{
-	content:" |";
-	margin-left:15px;
-	}
-	
-.nav-page-categories li:last-child:after{
-	content:"";
-	margin-left:0;
-	}
-
+	font-weight: normal;
+}
+.nav-page-category li:after {
+	content: " |";
+	margin-left: 15px;
+}
+.nav-page-category li:last-child:after {
+	content: "";
+	margin-left: 0;
+}
+li.nav-category-active {
+	font-weight: 700;
+}
 .works-gallery {
 	padding-left: 10px;
 	padding-right: 10px;
@@ -198,46 +196,47 @@ footer, .footer {
 .gallery-thumbnail {
 	padding-right: 5px;
 	padding-left: 5px;
+	margin-bottom: 10px;
 }
 .thumbnail {
 	margin: 0;
 	padding: 0;
 	width: 100%;
-	margin-bottom: 10px;
+	/*margin-bottom: 10px;*/
 	overflow: hidden;
 }
-.thumbnail img {
-}
+.link-title-gallery{
+	text-align:center;
+	font-weight: 500;
+	margin:0;
+	margin-bottom: 5px;
+	}
+.link-title-gallery a, .link-title-gallery a:link, .link-title-gallery a:active, .link-title-gallery a:visited{
+	border-bottom: none;
+	}
 a.thumbnail:hover, a.thumbnail:focus, a.thumbnail.active {
 	border-color: rgb(0,0,0);
 	border-width: 1px;
 }
 .load-more-bar {
-	height: 50px;
 	text-align: center;
-	border: 0px solid rgb(0,0,0);
+	border: 1px solid rgb(0,0,0);
+	padding:0;
 }
-.load-more-bar span {
-	display: block;
-	padding-top: 13px;
-	margin-top: 10px;
-}
-@keyframes down-arrow-repeat {
-    0% {top: 0;}
-    50% {top:5px}
-	100% {top: 0;}
-}
-.load-more-bar .glyphicon-arrow-down{
-	margin-top: 3px;
-	animation-name: down-arrow-repeat;
-    animation-duration: 3s;
-	animation-iteration-count: infinite;
-	animation-timing-function: ease-out;
+.load-more-bar:hover{
+	border: 1px solid rgb(100,100,100);
 	}
+.load-more-bar span {
+	height: 50px;
+	padding-top: 15px;
+	display: block;
+	width: 100%;
+	letter-spacing: .1em;
+}
 
 /* PIECE */
 .piece-row {
-	/*margin-top: 15px;*/
+/*margin-top: 15px;*/
 }
 .piece-area {
 	text-align: center;
@@ -250,14 +249,35 @@ a.thumbnail:hover, a.thumbnail:focus, a.thumbnail.active {
 	padding-left: 0;
 	list-style: none;
 }
-.share-dropdown{
+.share-dropdown {
 	background-color: rgb(0,0,0);
 	padding: 10px 15px 5px 15px;
 	display: none;
-	}
-.share-dropdown a{
+}
+.share-dropdown a {
 	color: #ffffff;
-	}
-.share-dropdown a:hover{
+}
+.share-dropdown a:hover {
 	color: rgb(120,120,120);
+}
+
+/* WORDS */
+.sidebar-list {
+	list-style: none;
+	padding-left: 0;
+	margin-top: 8px;
+}
+.sidebar-list li {
+	margin-bottom: 10px;
+}
+
+/* CONTACT */
+.contact-label {
+	display: block;
+	color: #666666;
+}
+ @media (max-width: 768px) {
+	.sidebar-list {
+		margin-bottom: 30px;
 	}
+}

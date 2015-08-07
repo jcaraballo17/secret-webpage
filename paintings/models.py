@@ -41,6 +41,27 @@ class Piece(models.Model):
     description = models.CharField(max_length=512)
     size = models.CharField(max_length=32)
     medium = models.CharField(max_length=128)
+    image = models.ImageField(upload_to='pieces')
+
+    def get_next_by_field(self, field):
+        next_object = None
+
+        try:
+            next_object = self._get_next_or_previous_by_FIELD(field, True)
+        except Piece.DoesNotExist:
+            pass
+
+        return next_object
+
+    def get_previous_by_field(self, field):
+        previous_object = None
+
+        try:
+            previous_object = self._get_next_or_previous_by_FIELD(field, False)
+        except Piece.DoesNotExist:
+            pass
+
+        return previous_object
 
     def __unicode__(self):
         return self.title

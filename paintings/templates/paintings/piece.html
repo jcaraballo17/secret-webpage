@@ -5,16 +5,23 @@
     <div class="container">
       <div class="row piece-row">
         <div class="col-md-8 piece-area">
-            <img src="{% static 'paintings/img/piece_1.jpg' %}" class="img-responsive" id="zoom_05" data-zoom-image="{% static 'paintings/img/piece_1_big.jpg' %}">
+            <img src="{{ object.image.url }}" class="img-responsive" id="zoom_05" data-zoom-image="{{ object.image.url }}">
         </div>
         <div class="col-md-4">
-          <h4>Wasatch Falls</h4>
+          <h4>{{ object.title }}</h4>
           <ul class="piece-info-list">
-            <li>2008</li>
-            <li>Oil and acrylic on hardwood panel</li>
-            <li>2" x 72"</li>
+            <li>{{ object.date.year }}</li>
+            <li>{{ object.description }}</li>
+            <li>{{ object.size }}</li>
             <li>&nbsp;</li>
-            <li><a href="#"><span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span></a> <a href="#" style="float:right;"><span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span></a></li>
+            <li>
+                <a href="{% if previous %} {% url 'piece' previous.id %} {% endif %}">
+                    <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+                </a>
+                <a href="{% if next %} {% url 'piece' next.id %} {% endif %}" style="float:right;">
+                    <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+                </a>
+            </li>
             <li>&nbsp;</li>
           </ul>
           <p><a href="#" class="share-link">Share</a></p>

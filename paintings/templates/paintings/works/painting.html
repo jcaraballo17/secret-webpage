@@ -5,7 +5,7 @@
     <div class="container">
       <div class="row piece-row">
         <div class="col-md-8 piece-area">
-            <img src="{{ object.image.url }}" class="img-responsive" id="zoom_05" data-zoom-image="{{ object.image.url }}">
+            <img src="{{ object.image_preview.url }}" class="img-responsive" id="zoom_05" data-zoom-image="{{ object.image.url }}">
         </div>
         <div class="col-md-4">
           <h4>{{ object.title }}</h4>
@@ -15,10 +15,10 @@
             <li>{{ object.size }}</li>
             <li>&nbsp;</li>
             <li>
-                <a href="{% if previous %} {% url 'piece' previous.id %} {% endif %}">
+                <a href="{% if previous %} {% url 'painting' previous.id %} {% endif %}">
                     <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
                 </a>
-                <a href="{% if next %} {% url 'piece' next.id %} {% endif %}" style="float:right;">
+                <a href="{% if next %} {% url 'painting' next.id %} {% endif %}" style="float:right;">
                     <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
                 </a>
             </li>

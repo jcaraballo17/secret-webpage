@@ -1,7 +1,7 @@
 from django.views.generic.base import TemplateView
 from django.views.generic.detail import DetailView
 
-from paintings.models import Announcement, HomePageImage, Piece
+from paintings.models import Announcement, HomePageImage, Painting, Video, Exhibition
 
 
 class HomeView(TemplateView):
@@ -19,22 +19,22 @@ class AnnouncementView(DetailView):
     template_name = "paintings/announcement.html"
 
 
-class PieceView(DetailView):
-    model = Piece
-    template_name = "paintings/piece.html"
+class PaintingsView(TemplateView):
+    template_name = 'paintings/works/paintings.html'
 
     def get_context_data(self, **kwargs):
-        context = super(PieceView, self).get_context_data(**kwargs)
-        order_field = Piece._meta.get_field_by_name('id')[0]
-        context['next'] = self.object.get_next_by_field(order_field)
-        context['previous'] = self.object.get_previous_by_field(order_field)
+        context = super(PaintingsView, self).get_context_data(**kwargs)
+        context['paintings'] = Painting.objects.all()
         return context
 
 
-class WorksView(TemplateView):
-    template_name = 'paintings/works.html'
+class PaintingDetailView(DetailView):
+    model = Painting
+    template_name = "paintings/works/painting.html"
 
     def get_context_data(self, **kwargs):
-        context = super(WorksView, self).get_context_data(**kwargs)
-        context['paintings'] = Piece.objects.all()
+        context = super(PaintingDetailView, self).get_context_data(**kwargs)
+        order_field = Painting._meta.get_field_by_name('id')[0]
+        context['next'] = self.object.get_next_by_field(order_field)
+        context['previous'] = self.object.get_previous_by_field(order_field)
         return context

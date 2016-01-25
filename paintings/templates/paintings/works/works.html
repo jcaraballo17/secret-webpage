@@ -1,0 +1,31 @@
+{% extends 'paintings/base.html' %}
+{% load static from staticfiles %}
+
+{% block content %}
+    <div class="container">
+        {% block subnavigation %}
+            <input id="active-category" type="hidden" value="{{ active_category }}">
+            <div class="row">
+                <div class="col-md-12">
+                    <ul class="nav-page-category">
+                        <li id="paintings"><a href="{% url 'paintings' %}">Paintings</a></li>
+                        <li id="exhibitions"><a href="#">Exhibitions</a></li>
+                        <li id="videos"><a href="#">Videos</a></li>
+                    </ul>
+                </div>
+            </div>
+        {% endblock %}
+
+        {% block gallery %}{% endblock %}
+    </div>
+{% endblock %}
+
+{% block scripts %}
+    {{ block.super }}
+    <script>
+        $(document).ready(function(){
+            var activeCategory = $('#active-category').val();
+            $('#' + activeCategory).addClass('nav-category-active');
+        });
+    </script>
+{% endblock %}

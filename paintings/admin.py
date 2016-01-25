@@ -1,5 +1,5 @@
 from django.contrib import admin
-from paintings.models import Announcement, HomePageImage, Piece
+from paintings.models import Announcement, HomePageImage, Painting
 
 
 @admin.register(Announcement)
@@ -12,6 +12,6 @@ class HomePageImageAdmin(admin.ModelAdmin):
     pass
 
 
-@admin.register(Piece)
-class PieceAdmin(admin.ModelAdmin):
+@admin.register(Painting)
+class PaintingAdmin(admin.ModelAdmin):
     pass

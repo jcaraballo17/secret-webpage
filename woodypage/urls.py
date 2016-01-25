@@ -19,13 +19,13 @@ from django.conf import settings
 from django.contrib import admin
 
 
-from paintings.views import HomeView, PieceView, WorksView, AnnouncementView
+from paintings.views import HomeView, PaintingDetailView, PaintingsView, AnnouncementView
 
 urlpatterns = [
     url(r'^$', HomeView.as_view(), name='home'),
     url(r'^announcement/(?P<pk>[-\w]+)$', AnnouncementView.as_view(), name='announcement'),
-    url(r'^works/$', WorksView.as_view(), name='works'),
-    url(r'^piece/(?P<pk>[-\w]+)$', PieceView.as_view(), name='piece'),
+    url(r'^works/paintings$', PaintingsView.as_view(), name='paintings'),
+    url(r'^works/paintings/(?P<pk>[-\w]+)$', PaintingDetailView.as_view(), name='painting'),
     url(r'^admin/', include(admin.site.urls)),
 ]
 

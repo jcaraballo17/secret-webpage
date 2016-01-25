@@ -28,8 +28,6 @@ TEMPLATE_DEBUG = True
 
 ALLOWED_HOSTS = []
 
-TASTYPIE_DEFAULT_FORMATS = ['json']
-
 # Application definition
 
 INSTALLED_APPS = (
@@ -40,6 +38,7 @@ INSTALLED_APPS = (
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'django_cleanup',
+    'imagekit',
     'paintings',
 )
 

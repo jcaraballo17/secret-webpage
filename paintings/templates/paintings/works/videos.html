@@ -1,0 +1,16 @@
+{% extends 'paintings/works/works.html' %}
+{% load staticfiles %}
+
+{% block gallery %}
+    <div class="row works-gallery">
+        <div class="col-xs-6 col-sm-4 col-md-3 gallery-thumbnail">
+            <a href="#" class="thumbnail">
+                <img src="{% static 'paintings/img/gallery_thumb_1.jpg' %}" alt="...">
+            </a>
+        </div>
+    </div>
+
+    <div class="col-md-12 load-more-bar">
+        <a href="#"><span class="small"><strong>LOAD MORE</strong></span></a>
+    </div>
+{% endblock %}

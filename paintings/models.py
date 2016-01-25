@@ -1,5 +1,33 @@
-from django.db import models
+from PIL import Image, ImageOps
 
+from django.db import models
+from imagekit.models.fields import ImageSpecField
+from pilkit.processors.base import Anchor
+from pilkit.processors.resize import Resize, Thumbnail
+
+
+# Image processor for paintings
+
+class RelativeResize(object):
+    def __init__(self, max_size, upscale=True, anchor=Anchor.CENTER):
+        self.max_size = max_size
+        self.upscale = upscale
+        self.anchor = anchor
+
+    @classmethod
+    def get_new_size(cls, image, max_size):
+        is_landscape = image.width > image.height
+        width = int(round(max_size if is_landscape else (float(image.width) / image.height) * max_size))
+        height = int(round(max_size if not is_landscape else (float(image.height) / image.width) * max_size))
+        return width, height
+
+    def process(self, image):
+        width, height = RelativeResize.get_new_size(image, self.max_size)
+        image = Resize(width, height, upscale=self.upscale).process(image)
+        return image
+
+
+# Models
 
 class HomePageImage(models.Model):
     name = models.CharField(max_length=256)
@@ -39,9 +67,6 @@ class Piece(models.Model):
     title = models.CharField(max_length=256)
     date = models.DateField()
     description = models.CharField(max_length=512)
-    size = models.CharField(max_length=32)
-    medium = models.CharField(max_length=128)
-    image = models.ImageField(upload_to='pieces')
 
     def get_next_by_field(self, field):
         next_object = None
@@ -68,3 +93,37 @@ class Piece(models.Model):
 
     def __str__(self):
         return self.title
+
+
+class Painting(Piece):
+    # TODO: sizes should be changed in an admin form.
+    PREVIEW_MAX_SIZE = 720
+    ORIGINAL_MAX_SIZE = 1600
+
+    size = models.CharField(max_length=32)
+    medium = models.CharField(max_length=128)
+    image = models.ImageField(upload_to='paintings')
+    image_thumbnail = ImageSpecField(source='image', format='JPEG', options={'quality': 80},
+                                     processors=[Thumbnail(300, 300)])
+    image_preview = ImageSpecField(source='image', format='JPEG', options={'quality': 90},
+                                   processors=[RelativeResize(PREVIEW_MAX_SIZE)])
+
+    def save(self, *args, **kwargs):
+        super(Painting, self).save(*args, **kwargs)
+        uploaded_image = Image.open(self.image.path)
+        size = RelativeResize.get_new_size(self.image, self.ORIGINAL_MAX_SIZE)
+        uploaded_image = uploaded_image.resize(size, Image.ANTIALIAS)
+        uploaded_image.save(self.image.path)
+
+
+class Video(Piece):
+    video_link = models.URLField()
+
+
+class Exhibition(Piece):
+    pass
+
+
+class ExhibitionImage(models.Model):
+    exhibition = models.ForeignKey(Exhibition, related_name='images')
+    image = models.ImageField(upload_to='exhibition_images')

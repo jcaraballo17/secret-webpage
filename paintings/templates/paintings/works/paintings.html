@@ -1,0 +1,26 @@
+{% extends 'paintings/works/works.html' %}
+{% load static from staticfiles %}
+
+
+{% block subnavigation %}
+    {% with 'paintings' as active_category %}
+        {{ block.super }}
+    {% endwith %}
+{% endblock %}
+
+
+{% block gallery %}
+    <div class="row works-gallery">
+        {% for painting in paintings %}
+            <div class="col-xs-6 col-sm-4 col-md-3 gallery-thumbnail">
+                <a href="{% url 'painting' painting.pk %}" class="thumbnail">
+                    <img src="{{ painting.image_thumbnail.url }}" alt="{{ painting.description }}">
+                </a>
+            </div>
+        {% endfor %}
+    </div>
+
+    <div class="col-md-12 load-more-bar">
+        <a href="#"><span class="small"><strong>LOAD MORE</strong></span></a>
+    </div>
+{% endblock %}

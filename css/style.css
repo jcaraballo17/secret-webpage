@@ -238,24 +238,36 @@ li.nav-category-active:after {
 	/*margin-bottom: 10px;*/
 	overflow: hidden;
 }
+.gallery-thumbnail-bar{
+	position: relative;
+	}
 .gallery-thumbnail-title{
 	width:100%;
-	/*background-color: rgba(255,255,255,.85);*/
-	padding: 5px;
+	background-color: rgba(255,255,255,.85);
 	position: absolute;
 	bottom: 0;
+	padding: 5px 8px;
 	display: none;
 	}
-.gallery-thumbnail:hover > .gallery-thumbnail-title{
+.gallery-thumbnail:hover > .gallery-thumbnail-bar .gallery-thumbnail-title{
 	display: block;
-}
-.gallery-thumbnail-title a span{
-	color: rgba(255,255,255,1);
-	/*-webkit-transition: all ease-in 1s;
-	-moz-transition: all ease-in 1s;
-	-o-transition: all ease-in 1s;
-	transition: all ease-in 1s;*/
 	}
+.gallery-thumbnail .gallery-thumbnail-bar .gallery-thumbnail-title a span{
+	color: rgba(0,0,0,1);
+	line-height: 15px !important;
+	display: inline-block;
+	}
+@media only screen and (max-width: 768px) {
+	.gallery-thumbnail-title{
+		display: block;
+		}
+	}
+	
+
+/*.gallery-thumbnail:hover > .gallery-thumbnail-bar .gallery-thumbnail-title a span{
+	color: red;
+}*/
+
 .link-title-gallery{
 	text-align:center;
 	font-weight: 500;

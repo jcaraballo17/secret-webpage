@@ -115,16 +115,14 @@ button[data-target="#topnav-toggle-button"] {
 .icon-bar {
 	background-color: rgb(0,0,0);
 }
-.navbar-active a{
-	/*background-color: #222222;*/
-	border: 1px solid #000000;
-	}
 .navbar-active a, .navbar-active a:active, .navbar-active a:link{
+	background-color: rgb(200,200,200);
 	/*color: rgb(221, 221, 221);*/
-	border: 1px solid rgb(0,0,0);
+	/*border: 1px solid rgb(0,0,0);*/
 	}
 .navbar-active a:hover{
-	border: 1px solid #bbbbbb !important;
+	background-color: rgb(200,200,200) !important;
+	/*border: 1px solid #bbbbbb !important;*/
 	-webkit-transition: ease-in .15s;
 	-moz-transition: ease-in .15s;
 	-o-transition: ease-in .15s;
@@ -176,7 +174,7 @@ button[data-target="#topnav-toggle-button"] {
 	color: #ffffff;
 }
 .home-announcement a:hover {
-	color: rgb(120,120,120);
+	color: rgb(180,180,180);
 }
 .announcement-title {
 	display: inline-block;
@@ -321,6 +319,21 @@ h4 .glyphicon{
 .share-dropdown a:hover {
 	color: rgb(120,120,120);
 }
+.video-wrapper{
+	position: relative;
+	padding-bottom: 56.25%; /* 16:9 */
+	padding-top: 25px;
+	height: 0;
+	}
+.video-wrapper iframe{
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	}	
+
+
 
 /* WORDS */
 .links-list {

@@ -38,3 +38,7 @@ class PaintingDetailView(DetailView):
         context['next'] = self.object.get_next_by_field(order_field)
         context['previous'] = self.object.get_previous_by_field(order_field)
         return context
+
+
+class ContactView(TemplateView):
+    template_name = "paintings/contact.html"

@@ -1,6 +1,12 @@
 {% extends 'paintings/base.html' %}
 {% load static from staticfiles %}
 
+{% block navigation %}
+    {% with 'works' as active_navigation %}
+        {{ block.super }}
+    {% endwith %}
+{% endblock %}
+
 {% block content %}
     <div class="container">
         {% block subnavigation %}

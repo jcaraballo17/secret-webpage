@@ -1,5 +1,11 @@
-{% extends 'paintings/works/works.html' %}
+{% extends 'paintings/base.html' %}
 {% load static from staticfiles %}
+
+{% block navigation %}
+    {% with 'contact' as active_navigation %}
+        {{ block.super }}
+    {% endwith %}
+{% endblock %}
 
 {% block content %}
     <div class="container">

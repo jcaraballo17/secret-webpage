@@ -1,6 +1,6 @@
 {% extends 'paintings/works/works.html' %}
 {% load static from staticfiles %}
-{% load youthumbnail from custom_tags %}
+{% load custom_tags %}
 
 
 {% block subnavigation %}
@@ -14,8 +14,8 @@
     <div class="row works-gallery">
         {% for video in videos %}
             <div class="col-xs-6 col-sm-4 col-md-3 gallery-thumbnail">
-                <a href="{{ video.video_link|youthumbnail }}" class="thumbnail">
-                    <img src="#" alt="...">
+                <a href="" class="thumbnail">
+                    <img src="{{ video.video_link|youthumbnail }}" alt="...">
                 </a>
             </div>
         {% endfor %}

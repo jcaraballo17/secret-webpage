@@ -1,5 +1,6 @@
 from django.views.generic.base import TemplateView
 from django.views.generic.detail import DetailView
+from django.views.generic.list import ListView
 
 from paintings.models import Announcement, HomePageImage, Painting, Video, Exhibition
 
@@ -19,13 +20,10 @@ class AnnouncementView(DetailView):
     template_name = "paintings/announcement.html"
 
 
-class PaintingsView(TemplateView):
+class PaintingsView(ListView):
+    model = Painting
     template_name = 'paintings/works/paintings.html'
-
-    def get_context_data(self, **kwargs):
-        context = super(PaintingsView, self).get_context_data(**kwargs)
-        context['paintings'] = Painting.objects.all()
-        return context
+    context_object_name = 'paintings'
 
 
 class PaintingDetailView(DetailView):
@@ -38,6 +36,12 @@ class PaintingDetailView(DetailView):
         context['next'] = self.object.get_next_by_field(order_field)
         context['previous'] = self.object.get_previous_by_field(order_field)
         return context
+
+
+class ExhibitionView(ListView):
+    model = Exhibition
+    template_name = 'paintings/works/exhibitions.html'
+    context_object_name = 'exhibitions'
 
 
 class ContactView(TemplateView):

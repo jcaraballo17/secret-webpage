@@ -101,7 +101,7 @@ class Painting(Piece):
     ORIGINAL_MAX_SIZE = 1600
 
     size = models.CharField(max_length=32)
-    medium = models.CharField(max_length=128)
+    medium = models.CharField(max_length=128, blank=True, null=True)
     image = models.ImageField(upload_to='paintings')
     image_thumbnail = ImageSpecField(source='image', format='JPEG', options={'quality': 80},
                                      processors=[Thumbnail(300, 300)])
@@ -121,9 +121,8 @@ class Video(Piece):
 
 
 class Exhibition(Piece):
-    pass
+    place = models.CharField(max_length=256, default='')
 
 
-class ExhibitionImage(models.Model):
+class ExhibitionPainting(Painting):
     exhibition = models.ForeignKey(Exhibition, related_name='images')
-    image = models.ImageField(upload_to='exhibition_images')

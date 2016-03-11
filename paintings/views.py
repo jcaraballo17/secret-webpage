@@ -55,5 +55,17 @@ class VideosView(ListView):
     context_object_name = 'videos'
 
 
+class VideoDetailView(DetailView):
+    model = Video
+    template_name = "paintings/works/video.html"
+
+    def get_context_data(self, **kwargs):
+        context = super(VideoDetailView, self).get_context_data(**kwargs)
+        order_field = Video._meta.get_field_by_name('id')[0]
+        context['next'] = self.object.get_next_by_field(order_field)
+        context['previous'] = self.object.get_previous_by_field(order_field)
+        return context
+
+
 class ContactView(TemplateView):
     template_name = "paintings/contact.html"

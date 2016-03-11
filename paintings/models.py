@@ -76,7 +76,7 @@ class Piece(models.Model):
 
         try:
             next_object = self._get_next_or_previous_by_FIELD(field, True)
-        except Piece.DoesNotExist:
+        except self.__class__.DoesNotExist:
             pass
 
         return next_object
@@ -86,7 +86,7 @@ class Piece(models.Model):
 
         try:
             previous_object = self._get_next_or_previous_by_FIELD(field, False)
-        except Piece.DoesNotExist:
+        except self.__class__.DoesNotExist:
             pass
 
         return previous_object

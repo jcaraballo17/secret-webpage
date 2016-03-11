@@ -1,0 +1,54 @@
+{% extends 'paintings/base.html' %}
+{% load staticfiles %}
+{% load custom_tags %}
+
+{% block navigation %}
+    {% with 'works' as active_navigation %}
+        {{ block.super }}
+    {% endwith %}
+{% endblock %}
+
+{% block content %}
+    <div class="container">
+        <div class="row piece-row">
+
+            <div class="col-md-8 video-wrapper">
+                <iframe class="embed-responsive-item" width="720" height="540"
+                        src="{{ object.video_link|embed }}" frameborder="0" allowfullscreen>
+                </iframe>
+            </div>
+
+            <div class="col-md-4">
+                <span style="display:block; margin:15px 0; text-align:center;">
+                    <a href="{% if previous %} {% url 'video' previous.id %} {% endif %}" style="float: left; padding-right: 30px;">
+                        <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+                    </a>
+                    <a href="{% url 'videos' %}" style="padding-left:15px; padding-right: 15px;">
+                        <span class="glyphicon glyphicon-th" aria-hidden="true"></span>
+                    </a>
+                    <a href="{% if next %} {% url 'video' next.id %} {% endif %}" style="float: right; padding-left:30px;">
+                        <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+                    </a>
+                </span>
+
+                <h4>{{ object.title }}</h4>
+                <ul class="piece-info-list">
+                    <li>{{ object.date.year }}</li>
+                    <li><p>{{ object.description }}</p></li>
+                </ul>
+
+                <p><a href="#" class="share-link">Share</a></p>
+
+                <div class="share-dropdown">
+                    <p>
+                        <a href="http://www.facebook.com/sharer/sharer.php?u=http://google.com&t=Check out Woody Shepherd's piece 'Wasatch Falls'"
+                           target="_blank">Post on Facebook</a></p>
+
+                    <p>
+                        <a href="https://twitter.com/intent/tweet?text=Check out Woody Shepherd's piece 'Wasatch Falls' http://url.com"
+                           target="_blank">Post on Twitter</a></p>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

@@ -14,7 +14,7 @@
     <div class="row works-gallery">
         {% for video in videos %}
             <div class="col-xs-6 col-sm-4 col-md-3 gallery-thumbnail">
-                <a href="" class="thumbnail">
+                <a href="{% url 'video' video.pk %}" class="thumbnail">
                     <img src="{{ video.video_link|youthumbnail }}" alt="...">
                 </a>
             </div>

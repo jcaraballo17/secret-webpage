@@ -68,6 +68,9 @@ class Piece(models.Model):
     date = models.DateField()
     description = models.CharField(max_length=512)
 
+    class Meta:
+        abstract = True
+
     def get_next_by_field(self, field):
         next_object = None
 
@@ -95,34 +98,45 @@ class Piece(models.Model):
         return self.title
 
 
-class Painting(Piece):
-    # TODO: sizes should be changed in an admin form.
-    PREVIEW_MAX_SIZE = 720
-    ORIGINAL_MAX_SIZE = 1600
-
-    size = models.CharField(max_length=32)
-    medium = models.CharField(max_length=128, blank=True, null=True)
-    image = models.ImageField(upload_to='paintings')
-    image_thumbnail = ImageSpecField(source='image', format='JPEG', options={'quality': 80},
-                                     processors=[Thumbnail(300, 300)])
-    image_preview = ImageSpecField(source='image', format='JPEG', options={'quality': 90},
-                                   processors=[RelativeResize(PREVIEW_MAX_SIZE)])
-
-    def save(self, *args, **kwargs):
-        super(Painting, self).save(*args, **kwargs)
-        uploaded_image = Image.open(self.image.path)
-        size = RelativeResize.get_new_size(self.image, self.ORIGINAL_MAX_SIZE)
-        uploaded_image = uploaded_image.resize(size, Image.ANTIALIAS)
-        uploaded_image.save(self.image.path)
+class Exhibition(Piece):
+    place = models.CharField(max_length=256, default='')
 
 
 class Video(Piece):
     video_link = models.URLField()
 
 
-class Exhibition(Piece):
-    place = models.CharField(max_length=256, default='')
+class ImagePiece(Piece):
+    # TODO: sizes should be changed in an admin form. maybe.
+    PREVIEW_MAX_SIZE = 720
+    ORIGINAL_MAX_SIZE = 1600
+
+    upload_directory = ''
+    size = models.CharField(max_length=32)
+
+    image = models.ImageField(upload_to=upload_directory)
+    image_thumbnail = ImageSpecField(source='image', format='JPEG', options={'quality': 80},
+                                     processors=[Thumbnail(300, 300)])
+    image_preview = ImageSpecField(source='image', format='JPEG', options={'quality': 90},
+                                   processors=[RelativeResize(PREVIEW_MAX_SIZE)])
+
+    class Meta:
+        abstract = True
+
+    def save(self, *args, **kwargs):
+        super(ImagePiece, self).save(*args, **kwargs)
+        uploaded_image = Image.open(self.image.path)
+        image_size = RelativeResize.get_new_size(self.image, self.ORIGINAL_MAX_SIZE)
+        uploaded_image = uploaded_image.resize(image_size, Image.ANTIALIAS)
+        uploaded_image.save(self.image.path)
 
 
-class ExhibitionPainting(Painting):
+class Painting(ImagePiece):
+    upload_directory = 'paintings'
+    medium = models.CharField(max_length=128)
+
+
+class ExhibitionPainting(ImagePiece):
+    upload_directory = 'exhibition_paintings'
     exhibition = models.ForeignKey(Exhibition, related_name='images')
+

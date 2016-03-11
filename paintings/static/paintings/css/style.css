@@ -238,6 +238,11 @@ li.nav-category-active:after {
 	/*margin-bottom: 10px;*/
 	overflow: hidden;
 }
+
+.thumbnail img:not(:first-child) {
+	display: none;
+}
+
 .gallery-thumbnail-bar{
 	position: relative;
 	}

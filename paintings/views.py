@@ -38,10 +38,15 @@ class PaintingDetailView(DetailView):
         return context
 
 
-class ExhibitionView(ListView):
+class ExhibitionsView(ListView):
     model = Exhibition
     template_name = 'paintings/works/exhibitions.html'
     context_object_name = 'exhibitions'
+
+
+class ExhibitionDetailView(DetailView):
+    model = Exhibition
+    template_name = "paintings/works/exhibition.html"
 
 
 class ContactView(TemplateView):

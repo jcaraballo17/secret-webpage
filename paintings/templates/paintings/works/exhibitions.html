@@ -3,7 +3,7 @@
 
 
 {% block subnavigation %}
-    {% with 'paintings' as active_category %}
+    {% with 'exhibitions' as active_category %}
         {{ block.super }}
     {% endwith %}
 {% endblock %}
@@ -13,8 +13,12 @@
     <div class="row works-gallery">
         {% for exhibition in exhibitions %}
             <div class="col-xs-6 col-sm-4 col-md-4 gallery-thumbnail">
-                <a href="#" class="thumbnail"><img src="img/gallery_thumb_1.jpg" alt="..."></a>
-                <p class="link-title-gallery"><a href="#">Exhibition Name Number One</a></p>
+                <a href="{% url 'exhibition' exhibition.pk %}" class="thumbnail">
+                    {% for painting in exhibition.images.all %}
+                        <img src="{{ painting.image_thumbnail.url }}" alt="{{ painting.title }}">
+                    {% endfor %}
+                </a>
+                <p class="link-title-gallery"><a href="{% url 'exhibition' exhibition.pk %}">{{ exhibition.title }}</a></p>
             </div>
         {% endfor %}
     </div>
@@ -22,4 +26,30 @@
     <div class="col-md-12 load-more-bar">
         <a href="#"><span class="small"><strong>LOAD MORE</strong></span></a>
     </div>
+{% endblock %}
+
+{% block scripts %}
+    {{ block.super }}
+    <script>
+        $(document).ready(function(){
+            var thumbnails = $('div.gallery-thumbnail .thumbnail');
+            var timeout;
+
+            thumbnails.children('img').on('mouseover', function() {
+                var image = $(this);
+                var next = $(this).next('img');
+                next = (next.length > 0)? next: image.parent('.thumbnail').children().first();
+                timeout = setTimeout(function() {
+                    image.hide();
+                    next.show();
+                }, 1000);
+            });
+
+            thumbnails.on('mouseleave', function() {
+                clearTimeout(timeout);
+                $(this).children().hide();
+                $(this).children().first().show();
+            });
+        });
+    </script>
 {% endblock %}

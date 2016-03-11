@@ -1,5 +1,5 @@
 from django.contrib import admin
-from paintings.models import Announcement, HomePageImage, Painting, Exhibition, ExhibitionPainting
+from paintings.models import Announcement, HomePageImage, Painting, Exhibition, ExhibitionPainting, Video
 
 
 @admin.register(Announcement)
@@ -25,3 +25,8 @@ class ExhibitionPaintingsInline(admin.TabularInline):
 @admin.register(Exhibition)
 class ExhibitionAdmin(admin.ModelAdmin):
     inlines = [ExhibitionPaintingsInline,]
+
+
+@admin.register(Video)
+class VideoAdmin(admin.ModelAdmin):
+    pass

@@ -49,5 +49,11 @@ class ExhibitionDetailView(DetailView):
     template_name = "paintings/works/exhibition.html"
 
 
+class VideosView(ListView):
+    model = Video
+    template_name = 'paintings/works/videos.html'
+    context_object_name = 'videos'
+
+
 class ContactView(TemplateView):
     template_name = "paintings/contact.html"

@@ -25,4 +25,4 @@ def youtube_thumbnail(url):
     qs = url.split('?')
     video_id = parse_qs(qs[1])['v'][0]
 
-    return "https://i.ytimg.com/vi_webp/%s/mqdefault.webp" % video_id
+    return "http://i.ytimg.com/vi/%s/hqdefault.jpg" % video_id

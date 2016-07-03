@@ -8,8 +8,8 @@ from paintings.image_processors import RelativeResize, Thumbnail
 
 class Piece(models.Model):
     title = models.CharField(max_length=256)
-    date = models.DateField()
-    description = models.CharField(max_length=512)
+    date = models.DateField(null=True, blank=True)
+    description = models.TextField(null=True, blank=True)
 
     class Meta:
         abstract = True
@@ -45,15 +45,11 @@ class ImagePiece(models.Model):
     # TODO: sizes should be changed in an admin form. maybe.
     PREVIEW_MAX_SIZE = 720
     ORIGINAL_MAX_SIZE = 1600
-
     upload_directory = ''
-    size = models.CharField(max_length=32)
 
     image = models.ImageField(upload_to=upload_directory)
-    image_thumbnail = ImageSpecField(source='image', format='JPEG', options={'quality': 80},
-                                     processors=[Thumbnail(300, 300)])
-    image_preview = ImageSpecField(source='image', format='JPEG', options={'quality': 90},
-                                   processors=[RelativeResize(PREVIEW_MAX_SIZE)])
+    image_thumbnail = ImageSpecField(source='image', format='JPEG', options={'quality': 80}, processors=[Thumbnail(300, 300)])
+    image_preview = ImageSpecField(source='image', format='JPEG', options={'quality': 90}, processors=[RelativeResize(PREVIEW_MAX_SIZE)])
 
     class Meta:
         abstract = True
@@ -77,10 +73,7 @@ class HomePageImage(models.Model):
         return self.name
 
 
-class Announcement(models.Model):
-    title = models.CharField(max_length=256)
-    date = models.DateField(auto_now_add=True)
-    description = models.TextField()
+class Announcement(Piece):
     short_description = models.CharField(max_length=1024)
     active = models.BooleanField(default=True)
 
@@ -100,19 +93,23 @@ class Announcement(models.Model):
         return self.title
 
 
+class Painting(Piece, ImagePiece):
+    upload_directory = 'paintings'
+    medium = models.CharField(max_length=128, null=True, blank=True)
+    size = models.CharField(max_length=32, null=True, blank=True)
+
+
 class Exhibition(Piece):
-    place = models.CharField(max_length=256, default='')
+    thumbnail_upload_directory = 'exhibition_thumbnails'
+    place = models.CharField(max_length=256, default='', null=True, blank=True)
+    thumbnail = models.ImageField(upload_to=thumbnail_upload_directory, null=True, blank=True)
+    exhibition_thumbnail = ImageSpecField(source='image', format='JPEG', options={'quality': 80}, processors=[Thumbnail(300, 300)])
 
 
-class ExhibitionPainting(ImagePiece):
+class ExhibitionImage(ImagePiece):
     upload_directory = 'exhibition_paintings'
     exhibition = models.ForeignKey(Exhibition, related_name='images')
 
 
 class Video(Piece):
     video_link = models.URLField()
-
-
-class Painting(ImagePiece):
-    upload_directory = 'paintings'
-    medium = models.CharField(max_length=128)

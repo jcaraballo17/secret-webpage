@@ -1,5 +1,5 @@
 from django.contrib import admin
-from paintings.models import Announcement, HomePageImage, Painting, Exhibition, ExhibitionPainting, Video
+from paintings.models import Announcement, HomePageImage, Painting, Exhibition, ExhibitionImage, Video
 
 
 @admin.register(Announcement)
@@ -18,7 +18,7 @@ class PaintingAdmin(admin.ModelAdmin):
 
 
 class ExhibitionPaintingsInline(admin.TabularInline):
-    model = ExhibitionPainting
+    model = ExhibitionImage
     fk_name = 'exhibition'
 
 

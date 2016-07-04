@@ -103,7 +103,7 @@ class Exhibition(Piece):
     thumbnail_upload_directory = 'exhibition_thumbnails'
     place = models.CharField(max_length=256, default='', null=True, blank=True)
     thumbnail = models.ImageField(upload_to=thumbnail_upload_directory, null=True, blank=True)
-    exhibition_thumbnail = ImageSpecField(source='image', format='JPEG', options={'quality': 80}, processors=[Thumbnail(300, 300)])
+    exhibition_thumbnail = ImageSpecField(source='image', format='JPEG', options={'quality': 80}, processors=[Thumbnail(385, 385)])
 
 
 class ExhibitionImage(ImagePiece):
@@ -113,3 +113,26 @@ class ExhibitionImage(ImagePiece):
 
 class Video(Piece):
     video_link = models.URLField()
+
+
+class Word(models.Model):
+    title = models.CharField(max_length=1024)
+    content = models.TextField()
+    featured = models.BooleanField(default=False)
+    sticky = models.BooleanField(default=False)
+
+    def save(self, force_insert=False, force_update=False, using=None, update_fields=None):
+        if self.featured:
+            previous_featured_queryset = Word.objects.filter(featured=True)
+            if previous_featured_queryset.exists():
+                previous_featured = previous_featured_queryset.get()
+                previous_featured.featured = False
+                previous_featured.save()
+
+        super(Word, self).save(force_insert, force_update, using, update_fields)
+
+    def __unicode__(self):
+        return self.title
+
+    def __str__(self):
+        return self.title

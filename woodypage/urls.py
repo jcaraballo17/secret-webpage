@@ -20,7 +20,7 @@ from django.contrib import admin
 
 
 from paintings.views import HomeView, PaintingDetailView, PaintingsView, AnnouncementView, ContactView, ExhibitionsView, \
-    ExhibitionDetailView, VideosView, VideoDetailView
+    ExhibitionDetailView, VideosView, VideoDetailView, WordsView
 
 urlpatterns = [
     url(r'^$', HomeView.as_view(), name='home'),
@@ -31,6 +31,8 @@ urlpatterns = [
     url(r'^works/exhibitions/(?P<pk>[-\w]+)$', ExhibitionDetailView.as_view(), name='exhibition'),
     url(r'^works/videos$', VideosView.as_view(), name='videos'),
     url(r'^works/videos/(?P<pk>[-\w]+)$', VideoDetailView.as_view(), name='video'),
+    url(r'^words/(?P<pk>[-\w]+)$', WordsView.as_view(), name='words'),
+    url(r'^words/$', WordsView.as_view(), name='featured_word'),
     url(r'^contact/$', ContactView.as_view(), name='contact'),
     url(r'^admin/', include(admin.site.urls)),
 ]

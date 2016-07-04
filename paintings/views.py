@@ -2,7 +2,7 @@ from django.views.generic.base import TemplateView
 from django.views.generic.detail import DetailView
 from django.views.generic.list import ListView
 
-from paintings.models import Announcement, HomePageImage, Painting, Video, Exhibition
+from paintings.models import Announcement, HomePageImage, Painting, Video, Exhibition, Word
 
 
 class HomeView(TemplateView):
@@ -65,6 +65,24 @@ class VideoDetailView(DetailView):
         context['next'] = self.object.get_next_by_field(order_field)
         context['previous'] = self.object.get_previous_by_field(order_field)
         return context
+
+
+class WordsView(DetailView):
+    model = Word
+    template_name = 'paintings/words.html'
+
+    def get_context_data(self, **kwargs):
+        context = super(WordsView, self).get_context_data(**kwargs)
+        context['sticky_words'] = Word.objects.filter(sticky=True)
+        context['words_list'] = Word.objects.filter(sticky=False)
+        return context
+
+    def get_object(self, queryset=None):
+        if 'pk' in self.kwargs:
+            return super(WordsView, self).get_object(queryset)
+
+        featured_queryset = Word.objects.filter(featured=True)
+        return featured_queryset.get() if featured_queryset.exists() else None
 
 
 class ContactView(TemplateView):

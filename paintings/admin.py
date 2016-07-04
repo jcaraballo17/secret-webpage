@@ -1,5 +1,5 @@
 from django.contrib import admin
-from paintings.models import Announcement, HomePageImage, Painting, Exhibition, ExhibitionImage, Video
+from paintings.models import Announcement, HomePageImage, Painting, Exhibition, ExhibitionImage, Video, Word
 
 
 @admin.register(Announcement)
@@ -29,4 +29,9 @@ class ExhibitionAdmin(admin.ModelAdmin):
 
 @admin.register(Video)
 class VideoAdmin(admin.ModelAdmin):
+    pass
+
+
+@admin.register(Word)
+class WordsAdmin(admin.ModelAdmin):
     pass

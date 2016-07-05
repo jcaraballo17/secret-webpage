@@ -13,15 +13,20 @@
 {% block gallery %}
     <div class="row works-gallery">
         {% for video in videos %}
-            <div class="col-xs-6 col-sm-4 col-md-3 gallery-thumbnail">
+            <div class="col-xs-6 col-sm-4 col-md-4 gallery-thumbnail">
                 <a href="{% url 'video' video.pk %}" class="thumbnail">
                     <img src="{{ video.video_link|youthumbnail }}" alt="...">
                 </a>
+                <div class="gallery-thumbnail-bar">
+                    <div class="gallery-thumbnail-title">
+                        <a href="#"><span class="text-italic">{{ video.title }}</span></a>
+                    </div>
+                </div>
             </div>
         {% endfor %}
     </div>
 
-    <div class="col-md-12 load-more-bar">
-        <a href="#"><span class="small"><strong>LOAD MORE</strong></span></a>
+    <div class="col-md-12 load-more-div">
+        <a href="#" class="load-more-button"><span class="small"><strong>LOAD MORE</strong></span></a>
     </div>
 {% endblock %}

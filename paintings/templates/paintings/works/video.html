@@ -12,13 +12,12 @@
     <div class="container">
         <div class="row piece-row">
 
-            <div class="col-md-8 video-wrapper">
+            <div class="col-md-12 video-wrapper">
                 <iframe class="embed-responsive-item" width="720" height="540"
                         src="{{ object.video_link|embed }}" frameborder="0" allowfullscreen>
                 </iframe>
             </div>
-
-            <div class="col-md-4">
+            <div class="col-md-12">
                 <span style="display:block; margin:15px 0; text-align:center;">
                     <a href="{% if previous %} {% url 'video' previous.id %} {% endif %}" style="float: left; padding-right: 30px;">
                         <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
@@ -30,8 +29,9 @@
                         <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
                     </a>
                 </span>
-
-                <h4>{{ object.title }}</h4>
+            </div>
+            <div class="col-md-9">
+                <h4 class="piece-title">{{ object.title }}</h4>
                 <ul class="piece-info-list">
                     <li>{{ object.date.year }}</li>
                     <li><p>{{ object.description }}</p></li>
@@ -51,4 +51,23 @@
             </div>
         </div>
     </div>
+{% endblock %}
+
+{% block scripts %}
+    {{ block.super }}
+    <script>
+        $(document).ready(function () {
+            var shareactive = 0; // 0 false 1 ture
+            $('.share-link').click(function () {
+                if (shareactive == 0) {
+                    $('.share-dropdown').css('display', 'block');
+                    shareactive = 1;
+                }
+                else {
+                    $('.share-dropdown').css('display', 'none');
+                    shareactive = 0;
+                }
+            });
+        });
+    </script>
 {% endblock %}

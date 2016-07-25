@@ -277,6 +277,10 @@ p {
     margin-top: -15px;
 }
 
+.gallery-thumbnail:nth-child(1n+17) {
+    display: none;
+}
+
 @media only screen and (max-width: 768px) {
     .nav-page-category {
     text-align: center;
@@ -327,6 +331,7 @@ li.nav-category-active {
     border: 0;
 }
 
+
 /*to be removed, no longer needed*/
 .thumbnail img:not(:first-child) {
     display: none;
@@ -373,8 +378,9 @@ li.nav-category-active {
 
 .load-more-div {
     text-align: center;
-    display: block;
+    display: none;
     margin-bottom: 10px;
+    cursor: pointer;
 }
 
 .load-more-button {

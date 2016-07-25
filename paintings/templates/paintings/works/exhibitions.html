@@ -22,34 +22,4 @@
             </div>
         {% endfor %}
     </div>
-
-    <div class="col-md-12 load-more-div">
-        <a href="#" class="load-more-button"><span class="small"><strong>LOAD MORE</strong></span></a>
-    </div>
-{% endblock %}
-
-{% block scripts %}
-    {{ block.super }}
-    <script>
-        $(document).ready(function(){
-            var thumbnails = $('div.gallery-thumbnail .thumbnail');
-            var timeout;
-
-            thumbnails.children('img').on('mouseover', function() {
-                var image = $(this);
-                var next = $(this).next('img');
-                next = (next.length > 0)? next: image.parent('.thumbnail').children().first();
-                timeout = setTimeout(function() {
-                    image.hide();
-                    next.show();
-                }, 1000);
-            });
-
-            thumbnails.on('mouseleave', function() {
-                clearTimeout(timeout);
-                $(this).children().hide();
-                $(this).children().first().show();
-            });
-        });
-    </script>
 {% endblock %}

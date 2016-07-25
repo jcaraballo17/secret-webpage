@@ -24,8 +24,8 @@
 
         {% block gallery %}{% endblock %}
         {% block load_more %}
-            <div class="col-md-12 load-more-bar">
-                <a href="#"><span class="load-more-button small"><strong>LOAD MORE</strong></span></a>
+            <div class="col-md-12 load-more-div">
+                <a class="load-more-button"><span class="small"><strong>LOAD MORE</strong></span></a>
             </div>
         {% endblock %}
     </div>
@@ -35,8 +35,24 @@
     {{ block.super }}
     <script>
         $(document).ready(function(){
+            var maxPieceCount = 16;
+            var loadMoreButton = $('div.load-more-div');
+            var pieces = $('div.works-gallery div.gallery-thumbnail');
             var activeCategory = $('#active-category').val();
             $('#' + activeCategory).addClass('nav-category-active');
+
+            if (pieces.length > maxPieceCount) {
+                loadMoreButton.show();
+
+                loadMoreButton.on('click', function() {
+                    var notShown = pieces.filter(function() { return $(this).css('display') == 'none'; });
+                    notShown.slice(0, maxPieceCount).show();
+
+                    if (notShown.length <= maxPieceCount) {
+                        loadMoreButton.hide();
+                    }
+                });
+            }
         });
     </script>
 {% endblock %}

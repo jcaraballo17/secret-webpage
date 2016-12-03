@@ -103,7 +103,7 @@ class Exhibition(Piece):
     thumbnail_upload_directory = 'exhibition_thumbnails'
     place = models.CharField(max_length=256, default='', null=True, blank=True)
     thumbnail = models.ImageField(upload_to=thumbnail_upload_directory, null=True, blank=True)
-    exhibition_thumbnail = ImageSpecField(source='image', format='JPEG', options={'quality': 80}, processors=[Thumbnail(385, 385)])
+    exhibition_thumbnail = ImageSpecField(source='thumbnail', format='JPEG', options={'quality': 80}, processors=[Thumbnail(385, 385)])
 
 
 class ExhibitionImage(ImagePiece):

@@ -17,14 +17,13 @@ class PaintingAdmin(admin.ModelAdmin):
     pass
 
 
-class ExhibitionPaintingsInline(admin.TabularInline):
+class ExhibitionPaintingsInline(admin.StackedInline):
     model = ExhibitionImage
-    fk_name = 'exhibition'
 
 
 @admin.register(Exhibition)
 class ExhibitionAdmin(admin.ModelAdmin):
-    inlines = [ExhibitionPaintingsInline,]
+    inlines = [ExhibitionPaintingsInline, ]
 
 
 @admin.register(Video)

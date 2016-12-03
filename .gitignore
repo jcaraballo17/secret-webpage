@@ -33,5 +33,11 @@ nosetests.xml
 
 # PyCharm
 .idea
-.idea/woodypage.iml
+.idea/*
 woodypage/settings/settings.json
+.DS_Store
+paintings/migrations/0001_initial.py
+paintings/migrations/0002_auto_20160703_2230.py
+paintings/migrations/0003_auto_20160703_2233.py
+paintings/migrations/0004_word.py
+~/

@@ -10,64 +10,29 @@
 {% block content %}
     {% with object.images.all.0 as object %}
     <div class="container">
-        <div class="row piece-row">
-            <div class="col-md-8 piece-area">
-                <img src="{{ object.image_preview.url }}" class="img-responsive" id="zoom_05"
-                     data-zoom-image="{{ object.image.url }}">
-            </div>
-            <div class="col-md-4">
-                <span style="display:block; margin:15px 0; text-align:center;">
-                    <a href="#" style="float: left; padding-right: 30px;">
-                        <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
-                    </a>
-                    <a href="{% url 'exhibitions' %}" style="padding-left:15px; padding-right: 15px;">
-                        <span class="glyphicon glyphicon-th" aria-hidden="true"></span>
-                    </a>
-                    <a href="#" style="float: right; padding-left:30px;">
-                        <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
-                    </a>
-                </span>
+         <div class="row">
+            <div class="col-sm-3 col-md-3">
+                <ul class="links-list">
+                    <li><strong>EXHIBITIONS</strong></li>
+                    {% for word in sticky_words %}
+                        <li><a href="{% url 'words' word.pk %}">{{ word.title }}</a></li>
+                    {% endfor %}
 
-                <h4>{{ object.title }}</h4>
-                <ul class="piece-info-list">
-                    <li>{{ object.date.year }}</li>
-                    <li>{{ object.medium }}</li>
-                    <li>{{ object.size }}</li>
+                    {% for word in words_list %}
+                        <li class="hidden-xs"><a href="{% url 'words' word.pk %}">{{ word.title }}</a></li>
+                    {% endfor %}
+
+                    <li class="visible-xs"><span>View All Exhibitions</span></li>
                 </ul>
-                <p><a href="#" class="share-link">Share</a></p>
-
-                <div class="share-dropdown">
-                    <p>
-                        <a href="http://www.facebook.com/sharer/sharer.php?u=http://google.com&t=Check out Woody Shepherd's piece '{{ piece.title }}'"
-                           target="_blank">Post on Facebook</a></p>
-
-                    <p>
-                        <a href="https://twitter.com/intent/tweet?text=Check out Woody Shepherd's piece '{{ piece.title }}' http://url.com"
-                           target="_blank">Post on Twitter</a></p>
-                </div>
+            </div>
+            <div class="col-sm-9 col-md-9 exhibition-container">
+                <h3>{{ object.title }}So Take What You Want From Me. Take What You Want</h3>
+                <span class="exhibition-info"><strong>NAME OF PLACE</strong> | 2016-03-01</span>
+                <p>{{ object.content }}Masquerading as a myriad of characters, Cindy Sherman (American, born 1954) invents personas and tableaus that examine the construction of identity, the nature of representation, and the artifice of photography. To create her images, she assumes the multiple roles of photographer, model, makeup artist, hairdresser, and stylist. Whether portraying a career girl, a blond bombshell, a fashion victim, a clown, or a society lady of a certain age, for over thirty-five years this relentlessly adventurous artist has created an eloquent and provocative body of work that resonates deeply in our visual culture.</p>
+                <img src="http://127.0.0.1:8000/media/Edouard_Manet_025.jpg" class="img-responsive"/>
+                <span class="caption-text">This is a caption for the image above</span>
             </div>
         </div>
     </div>
     {% endwith %}
-{% endblock %}
-
-{% block scripts %}
-    {{ block.super }}
-    <script src="{% static 'paintings/js/libraries/jquery.elevatezoom.js' %}"></script>
-    <script> $("#zoom_05").elevateZoom({zoomType: "inner", cursor: "move"});</script>
-    <script>
-        $(document).ready(function () {
-            var shareactive = 0; // 0 false 1 ture
-            $('.share-link').click(function () {
-                if (shareactive == 0) {
-                    $('.share-dropdown').css('display', 'block');
-                    shareactive = 1;
-                }
-                else {
-                    $('.share-dropdown').css('display', 'none');
-                    shareactive = 0;
-                }
-            });
-        });
-    </script>
 {% endblock %}

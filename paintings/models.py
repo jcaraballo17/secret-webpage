@@ -1,4 +1,7 @@
+import re
+
 from PIL import Image, ImageOps
+from django.core.exceptions import ValidationError
 
 from django.db import models
 from imagekit.models.fields import ImageSpecField
@@ -114,6 +117,24 @@ class ExhibitionImage(ImagePiece):
 class Video(Piece):
     video_link = models.URLField()
 
+    def clean(self):
+        super(Video, self).clean()
+        if not self.youtube_url_validation(self.video_link):
+            raise ValidationError({'video_link': 'Must be a Youtube video.'})
+
+    @staticmethod
+    def youtube_url_validation(url):
+        youtube_regex = (
+            r'(https?://)?(www\.)?'
+            '(youtube|youtu|youtube-nocookie)\.(com|be)/'
+            '(watch\?.*?(?=v=)v=|embed/|v/|.+\?v=)?([^&=%\?]{11})')
+
+        youtube_regex_match = re.match(youtube_regex, url)
+        if youtube_regex_match:
+            return youtube_regex_match.group(6)
+
+        return youtube_regex_match
+
 
 class Word(models.Model):
     title = models.CharField(max_length=1024)
@@ -121,7 +142,7 @@ class Word(models.Model):
     featured = models.BooleanField(default=False)
     sticky = models.BooleanField(default=False)
 
-    def save(self, force_insert=False, force_update=False, using=None, update_fields=None):
+    def save(self, *args, **kwargs):
         if self.featured:
             previous_featured_queryset = Word.objects.filter(featured=True)
             if previous_featured_queryset.exists():
@@ -129,7 +150,7 @@ class Word(models.Model):
                 previous_featured.featured = False
                 previous_featured.save()
 
-        super(Word, self).save(force_insert, force_update, using, update_fields)
+        return super(Word, self).save(*args, **kwargs)
 
     def __unicode__(self):
         return self.title

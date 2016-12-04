@@ -1,6 +1,8 @@
 from urlparse import parse_qs
 from django import template
 
+from paintings.models import Video
+
 register = template.Library()
 
 
@@ -10,9 +12,7 @@ def youtube_embed(url):
     :param url: string containing youtube video url.
     :return: a string containing the youtube video embed url.
     """
-    qs = url.split('?')
-    video_id = parse_qs(qs[1])['v'][0]
-
+    video_id = Video.youtube_url_validation(url)
     return "https://www.youtube.com/embed/%s?rel=0" % video_id
 
 
@@ -22,7 +22,5 @@ def youtube_thumbnail(url):
     :param url: string containing youtube video url.
     :return: a string containing the youtube thumbnail image for the video.
     """
-    qs = url.split('?')
-    video_id = parse_qs(qs[1])['v'][0]
-
+    video_id = Video.youtube_url_validation(url)
     return "http://i.ytimg.com/vi/%s/hqdefault.jpg" % video_id

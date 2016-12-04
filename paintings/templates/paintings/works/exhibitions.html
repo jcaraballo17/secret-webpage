@@ -14,8 +14,8 @@
         {% for exhibition in exhibitions %}
             <div class="col-xs-6 col-sm-4 col-md-4 gallery-thumbnail">
                 <a href="{% url 'exhibition' exhibition.pk %}" class="thumbnail">
-                    {% for painting in exhibition.images.all %}
-                        <img src="{{ painting.image_thumbnail.url }}" alt="{{ painting.title }}">
+                    {% for image in exhibition.images.all %}
+                        <img src="{{ image.image_thumbnail.url }}" alt="{{ image.title }}">
                     {% endfor %}
                 </a>
                 <p class="link-title-gallery"><a href="{% url 'exhibition' exhibition.pk %}">{{ exhibition.title }}</a></p>

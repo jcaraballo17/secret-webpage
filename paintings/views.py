@@ -32,7 +32,7 @@ class PaintingDetailView(DetailView):
 
     def get_context_data(self, **kwargs):
         context = super(PaintingDetailView, self).get_context_data(**kwargs)
-        order_field = Painting._meta.get_field_by_name('id')[0]
+        order_field = Painting._meta.get_field('id')
         context['next'] = self.object.get_next_by_field(order_field)
         context['previous'] = self.object.get_previous_by_field(order_field)
         return context
@@ -61,7 +61,7 @@ class VideoDetailView(DetailView):
 
     def get_context_data(self, **kwargs):
         context = super(VideoDetailView, self).get_context_data(**kwargs)
-        order_field = Video._meta.get_field_by_name('id')[0]
+        order_field = Video._meta.get_field('id')
         context['next'] = self.object.get_next_by_field(order_field)
         context['previous'] = self.object.get_previous_by_field(order_field)
         return context

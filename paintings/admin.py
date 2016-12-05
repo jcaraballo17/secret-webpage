@@ -1,3 +1,4 @@
+from adminsortable2.admin import SortableAdminMixin, SortableInlineAdminMixin
 from django.contrib import admin
 from paintings.models import Announcement, HomePageImage, Painting, Exhibition, ExhibitionImage, Video, Word
 
@@ -13,24 +14,27 @@ class HomePageImageAdmin(admin.ModelAdmin):
 
 
 @admin.register(Painting)
-class PaintingAdmin(admin.ModelAdmin):
-    pass
+class PaintingAdmin(SortableAdminMixin, admin.ModelAdmin):
+    list_display_links = None
 
 
-class ExhibitionPaintingsInline(admin.StackedInline):
+class ExhibitionPaintingsInline(SortableInlineAdminMixin, admin.TabularInline):
     model = ExhibitionImage
+    list_display_links = None
+    list_display = ('', )
 
 
 @admin.register(Exhibition)
-class ExhibitionAdmin(admin.ModelAdmin):
+class ExhibitionAdmin(SortableAdminMixin, admin.ModelAdmin):
     inlines = [ExhibitionPaintingsInline, ]
+    list_display_links = None
 
 
 @admin.register(Video)
-class VideoAdmin(admin.ModelAdmin):
-    pass
+class VideoAdmin(SortableAdminMixin, admin.ModelAdmin):
+    list_display_links = None
 
 
 @admin.register(Word)
-class WordsAdmin(admin.ModelAdmin):
-    pass
+class WordsAdmin(SortableAdminMixin, admin.ModelAdmin):
+    list_display_links = None

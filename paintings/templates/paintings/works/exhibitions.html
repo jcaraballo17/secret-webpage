@@ -12,13 +12,17 @@
 {% block gallery %}
     <div class="row works-gallery">
         {% for exhibition in exhibitions %}
-            <div class="col-xs-6 col-sm-4 col-md-4 gallery-thumbnail">
+            <div class="col-xs-6 col-sm-4 col-md-3 gallery-thumbnail">
                 <a href="{% url 'exhibition' exhibition.pk %}" class="thumbnail">
                     {% for image in exhibition.images.all %}
                         <img src="{{ image.image_thumbnail.url }}" alt="{{ image.title }}">
                     {% endfor %}
                 </a>
-                <p class="link-title-gallery"><a href="{% url 'exhibition' exhibition.pk %}">{{ exhibition.title }}</a></p>
+                <div class="gallery-thumbnail-bar">
+                    <div class="gallery-thumbnail-title">
+                        <a href="{% url 'exhibition' exhibition.pk %}"><span class="text-italic">{{ exhibition.title }}</span></a>
+                    </div>
+                </div>
             </div>
         {% endfor %}
     </div>

@@ -11,8 +11,8 @@
     <div class="container">
         <div class="row">
             <div class="col-sm-3 col-md-3">
+                <span><strong>WORDS</strong></span>
                 <ul class="links-list">
-                    <li><strong>WORDS</strong></li>
                     {% for word in sticky_words %}
                         <li><a href="{% url 'words' word.pk %}">{{ word.title }}</a></li>
                     {% endfor %}
@@ -25,7 +25,7 @@
                 </ul>
             </div>
             <div class="col-sm-9 col-md-9 words-container">
-                <h3>{{ object.title }}</h3>
+                <h1>{{ object.title }}</h1>
                 <p>{{ object.content }}</p>
             </div>
         </div>

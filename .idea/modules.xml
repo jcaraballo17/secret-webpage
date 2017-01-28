@@ -2,6 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
+      <module fileurl="file://$PROJECT_DIR$/.idea/secret-webpage.iml" filepath="$PROJECT_DIR$/.idea/secret-webpage.iml" />
       <module fileurl="file://$USER_HOME$/Development/woodypage/.idea/woodypage.iml" filepath="$USER_HOME$/Development/woodypage/.idea/woodypage.iml" />
     </modules>
   </component>

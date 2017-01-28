@@ -24,8 +24,6 @@ SECRET_KEY = data["secret_key"]
 DEBUG = True
 DEPLOYED = False
 
-TEMPLATE_DEBUG = True
-
 ALLOWED_HOSTS = []
 
 # Application definition
@@ -37,7 +35,8 @@ INSTALLED_APPS = (
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'django_cleanup',
+    'django_unused_media',
+    'adminsortable2',
     'imagekit',
     'paintings',
 )

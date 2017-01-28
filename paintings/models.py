@@ -13,8 +13,10 @@ class Piece(models.Model):
     title = models.CharField(max_length=256)
     date = models.DateField(null=True, blank=True)
     description = models.TextField(null=True, blank=True)
+    order = models.PositiveIntegerField(default=0)
 
     class Meta:
+        ordering = ('order',)
         abstract = True
 
     def get_next_by_field(self, field):
@@ -80,14 +82,14 @@ class Announcement(Piece):
     short_description = models.CharField(max_length=1024)
     active = models.BooleanField(default=True)
 
-    def save(self, force_insert=False, force_update=False, using=None, update_fields=None):
+    def save(self, *args, **kwargs):
         if self.active:
             active_announcements = Announcement.objects.filter(active=True)
             for announcement in active_announcements:
                 announcement.active = False
                 announcement.save()
 
-        super(Announcement, self).save(force_insert, force_update, using, update_fields)
+        super(Announcement, self).save(*args, **kwargs)
 
     def __unicode__(self):
         return self.title
@@ -112,6 +114,10 @@ class Exhibition(Piece):
 class ExhibitionImage(ImagePiece):
     upload_directory = 'exhibition_paintings'
     exhibition = models.ForeignKey(Exhibition, related_name='images')
+    order = models.PositiveIntegerField(default=0)
+
+    class Meta:
+        ordering = ('order', )
 
 
 class Video(Piece):
@@ -141,6 +147,10 @@ class Word(models.Model):
     content = models.TextField()
     featured = models.BooleanField(default=False)
     sticky = models.BooleanField(default=False)
+    order = models.PositiveIntegerField(default=0)
+
+    class Meta:
+        ordering = ('order', )
 
     def save(self, *args, **kwargs):
         if self.featured:

@@ -1,0 +1,35 @@
+{% extends 'paintings/base.html' %}
+{% load staticfiles %}
+
+{% block styles %}
+    {{ block.super }}
+    <style>
+        .home-background {
+            background-image: url('{{ background_image.image.url }}')
+        }
+    </style>
+{% endblock %}
+
+{% block content %}
+    <!--JUMBOTRON - BACKGROUND + CONTENT-->
+    <div class="jumbotron home-background">
+        <div class="container">
+            <div class="row">
+                {% if announcement %}
+                    {% include 'paintings/snippets/announcemets.html' %}
+                {% endif %}
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block scripts %}
+    {{ block.super }}
+    <script>
+        $(document).ready(function(){
+            $('.glyphicon-remove').click(function(){
+                $('.home-announcement').css("display","none");
+            });
+        });
+    </script>
+{% endblock %}

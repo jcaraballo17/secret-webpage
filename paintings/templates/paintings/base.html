@@ -1,0 +1,66 @@
+{% load static from staticfiles %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>{% block page-title %}{% endblock %}Woody Shepherd</title>
+    {% block styles %}
+        <link href="{% static 'paintings/css/bootstrap.css' %}" rel="stylesheet">
+        <link href="{% static 'paintings/css/style.css' %}" rel="stylesheet">
+    {% endblock %}
+</head>
+
+<body>
+{% block navigation %}
+    <!--TOPBAR-->
+    <input id="active-navigation" type="hidden" value="{{ active_navigation }}">
+    <div class="container">
+        <div class="row top-navbar">
+            <header class="navbar-header">
+                <!--<button type="button" class="navbar-toggle collapsed" data-toggle="collapse"
+                        data-target="#topnav-toggle-button"><span class="sr-only">Toggle navigation</span> <span
+                        class="icon-bar"></span> <span class="icon-bar"></span> <span class="icon-bar"></span></button>-->
+                <a class="navbar-brand" href="{% url 'home' %}">WOODY SHEPHERD</a>
+            </header>
+            <nav class="navbar-links"> <!--class="collapse navbar-collapse" id="topnav-toggle-button"-->
+                <ul class="nav navbar-nav navbar-right">
+                    <li id="nav-works"><a href="{% url 'paintings' %}">WORKS</a></li>
+                    <li id="nav-words"><a href="{% url 'featured_word' %}">WORDS</a></li>
+                    <li id="nav-contact"><a href="{% url 'contact' %}">CONTACT</a></li>
+{#                    <li id="nav-shop"><a href="#">SHOP</a></li>#}
+                </ul>
+            </nav>
+        </div>
+    </div>
+{% endblock %}
+
+{% block content %}
+{% endblock %}
+
+{% block footer %}
+    <!--FOOTER-->
+    <footer class="footer">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <p>Copyright Woody Shepherd @ 2016</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+{% endblock %}
+
+{% block scripts %}
+    <script src="{% static 'paintings/js/libraries/jquery-1.11.3.min.js' %}"></script>
+    <script src="{% static 'paintings/js/libraries/bootstrap.min.js' %}"></script>
+    <script>
+        $(document).ready(function(){
+            var activeNavigation = $('#active-navigation').val();
+            $('#nav-' + activeNavigation).addClass('navbar-active');
+        });
+    </script>
+{% endblock %}
+</body>
+</html>

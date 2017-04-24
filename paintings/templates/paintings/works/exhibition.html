@@ -1,0 +1,41 @@
+{% extends 'paintings/base.html' %}
+{% load staticfiles %}
+
+{% block navigation %}
+    {% with 'works' as active_navigation %}
+        {{ block.super }}
+    {% endwith %}
+{% endblock %}
+
+{% block content %}
+    {% with object.images.all.0 as object %}
+    <div class="container">
+         <div class="row">
+            <div class="col-sm-3 col-md-3">
+                <span><strong>EXHIBITIONS</strong></span>
+                <ul class="links-list">
+                    {% for word in sticky_words %}
+                        <li><a href="{% url 'words' word.pk %}">{{ word.title }}</a></li>
+                    {% endfor %}
+
+                    {% for word in words_list %}
+                        <li class="hidden-xs"><a href="{% url 'words' word.pk %}">{{ word.title }}</a></li>
+                    {% endfor %}
+
+                    <li class="visible-xs"><span>View All Exhibitions</span></li>
+                </ul>
+            </div>
+            <div class="col-sm-9 col-md-9 exhibition-container">
+                <h1>{{ object.title }}So Take What You Want From Me. Take What You Want</h1>
+                <span class="sub-info"><strong>NAME OF PLACE</strong> | 2016-03-01</span>
+                <p>{{ object.content }}Masquerading as a myriad of characters, Cindy Sherman (American, born 1954) invents personas and tableaus that examine the construction of identity, the nature of representation, and the artifice of photography. To create her images, she assumes the multiple roles of photographer, model, makeup artist, hairdresser, and stylist. Whether portraying a career girl, a blond bombshell, a fashion victim, a clown, or a society lady of a certain age, for over thirty-five years this relentlessly adventurous artist has created an eloquent and provocative body of work that resonates deeply in our visual culture.</p>
+                <img src="http://127.0.0.1:8000/media/Edouard_Manet_025.jpg" class="img-responsive exhibition-img"/>
+                <img src="http://127.0.0.1:8000/media/Edouard_Manet_025.jpg" class="img-responsive exhibition-img"/>
+                <span class="caption-text">This is a caption for the image above</span>
+                <img src="http://127.0.0.1:8000/media/Edouard_Manet_025.jpg" class="img-responsive exhibition-img"/>
+                <span class="caption-text">This is a caption for the image above</span>
+            </div>
+        </div>
+    </div>
+    {% endwith %}
+{% endblock %}

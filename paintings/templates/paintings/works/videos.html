@@ -1,0 +1,28 @@
+{% extends 'paintings/works/works.html' %}
+{% load static from staticfiles %}
+{% load custom_tags %}
+
+
+{% block subnavigation %}
+    {% with 'videos' as active_category %}
+        {{ block.super }}
+    {% endwith %}
+{% endblock %}
+
+
+{% block gallery %}
+    <div class="row works-gallery">
+        {% for video in videos %}
+            <div class="col-xs-6 col-sm-4 col-md-4 gallery-thumbnail">
+                <a href="{% url 'video' video.pk %}" class="thumbnail">
+                    <img src="{{ video.video_link|youthumbnail }}" alt="...">
+                </a>
+                <div class="gallery-thumbnail-bar">
+                    <div class="gallery-thumbnail-title">
+                        <a href="#"><span class="text-italic">{{ video.title }}</span></a>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+{% endblock %}

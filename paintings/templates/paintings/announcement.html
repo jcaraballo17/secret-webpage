@@ -1,0 +1,14 @@
+{% extends 'paintings/base.html' %}
+{% load staticfiles %}
+
+{% block content %}
+    <div class="container">
+        <div class="row piece-row">
+            <div class="col-md-9">
+                <h1>{{ object.title }}</h1>
+                <span class="sub-info">{{ object.date }}</span>
+                <p>{{ object.description }}</p>
+            </div>
+        </div>
+    </div>
+{% endblock %}

@@ -89,7 +89,7 @@ class Announcement(Piece):
                 announcement.active = False
                 announcement.save()
 
-        super(Announcement, self).save(*args, **kwargs)
+        return super(Announcement, self).save(*args, **kwargs)
 
     def __unicode__(self):
         return self.title
@@ -113,6 +113,7 @@ class Exhibition(Piece):
 
 class ExhibitionImage(ImagePiece):
     upload_directory = 'exhibition_paintings'
+    caption = models.CharField(max_length=256, default='', null=True, blank=True)
     exhibition = models.ForeignKey(Exhibition, related_name='images')
     order = models.PositiveIntegerField(default=0)
 

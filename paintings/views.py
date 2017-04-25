@@ -43,6 +43,11 @@ class ExhibitionsView(ListView):
     template_name = 'paintings/works/exhibitions.html'
     context_object_name = 'exhibitions'
 
+    def get_context_data(self, **kwargs):
+        context = super(ExhibitionsView, self).get_context_data(**kwargs)
+        context['exhibitions_list'] = Exhibition.objects.all()
+        return context
+
 
 class ExhibitionDetailView(DetailView):
     model = Exhibition

@@ -1,5 +1,5 @@
 <section class="col-md-5 home-announcement">
-    <h4 class="announcement-title"><a href="{% url 'announcement' announcement.pk %}">{{ announcement.title }}</a></h4>
+    <h2 class="announcement-title"><a href="{% url 'announcement' announcement.pk %}">{{ announcement.title }}</a></h2>
     <span class="announcement-date">{{ announcement.date }}</span>
     <p class="small">{{ announcement.short_description }}</p>
     <p class="small"><a href="{% url 'announcement' announcement.pk %}">Read More...</a></p>

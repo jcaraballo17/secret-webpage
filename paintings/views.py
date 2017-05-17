@@ -2,7 +2,7 @@ from django.views.generic.base import TemplateView
 from django.views.generic.detail import DetailView
 from django.views.generic.list import ListView
 
-from paintings.models import Announcement, HomePageImage, Painting, Video, Exhibition, Word
+from paintings.models import Announcement, HomePageBackground, Painting, Video, Exhibition, Word
 
 
 class HomeView(TemplateView):
@@ -11,7 +11,7 @@ class HomeView(TemplateView):
     def get_context_data(self, **kwargs):
         context = super(HomeView, self).get_context_data(**kwargs)
         context['active_announcement'] = Announcement.objects.filter(active=True).first()
-        context['background_image'] = HomePageImage.objects.all().order_by('?').first()
+        context['background_image'] = HomePageBackground.objects.all().order_by('?').first()
         return context
 
 

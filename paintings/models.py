@@ -1,22 +1,20 @@
 import re
 
+import datetime
 from PIL import Image, ImageOps
 from django.core.exceptions import ValidationError
 
 from django.db import models
+from django.utils.six import python_2_unicode_compatible
 from imagekit.models.fields import ImageSpecField
 
 from paintings.image_processors import RelativeResize, Thumbnail
 
 
-class Piece(models.Model):
-    title = models.CharField(max_length=256)
-    date = models.DateField(null=True, blank=True)
-    description = models.TextField(null=True, blank=True)
+class SortablePiece(models.Model):
     order = models.PositiveIntegerField(default=0)
 
     class Meta:
-        ordering = ('order',)
         abstract = True
 
     def get_next_by_field(self, field):
@@ -39,14 +37,8 @@ class Piece(models.Model):
 
         return previous_object
 
-    def __unicode__(self):
-        return self.title
 
-    def __str__(self):
-        return self.title
-
-
-class ImagePiece(models.Model):
+class VisualPiece(models.Model):
     # TODO: sizes should be changed in an admin form. maybe.
     PREVIEW_MAX_SIZE = 720
     ORIGINAL_MAX_SIZE = 1600
@@ -60,69 +52,105 @@ class ImagePiece(models.Model):
         abstract = True
 
     def save(self, *args, **kwargs):
-        super(ImagePiece, self).save(*args, **kwargs)
+        super(VisualPiece, self).save(*args, **kwargs)
         uploaded_image = Image.open(self.image.path)
         image_size = RelativeResize.get_new_size(self.image, self.ORIGINAL_MAX_SIZE)
         uploaded_image = uploaded_image.resize(image_size, Image.ANTIALIAS)
         uploaded_image.save(self.image.path)
 
 
-class HomePageImage(models.Model):
-    name = models.CharField(max_length=256)
-    image = models.ImageField(upload_to='home_images')
+@python_2_unicode_compatible
+class HomePageBackground(models.Model):
+    name = models.CharField(max_length=256, help_text='Name to identify the background with.')
+    image = models.ImageField(upload_to='homepage_backgrounds')
 
-    def __unicode__(self):
-        return self.name
+    class Meta:
+        db_table = 'homepage_background'
 
     def __str__(self):
         return self.name
 
 
-class Announcement(Piece):
-    short_description = models.CharField(max_length=1024)
-    active = models.BooleanField(default=True)
+@python_2_unicode_compatible
+class Announcement(models.Model):
+    title = models.CharField(max_length=256)
+    short_description = models.CharField(max_length=1024, help_text='Message that will appear in the homepage announcement section.')
+    date = models.DateField(null=True, blank=True, auto_now_add=True)
+    description = models.TextField(null=True, blank=True, help_text='Full announcement text with more details.')
+    active = models.BooleanField(default=True, help_text='Make this the active announcement on the homepage.')
+
+    class Meta:
+        db_table = 'announcements'
 
     def save(self, *args, **kwargs):
         if self.active:
-            active_announcements = Announcement.objects.filter(active=True)
-            for announcement in active_announcements:
-                announcement.active = False
-                announcement.save()
+            active_announcement = Announcement.objects.filter(active=True).first()
+            if active_announcement:
+                active_announcement.active = False
+                active_announcement.save()
 
         return super(Announcement, self).save(*args, **kwargs)
-
-    def __unicode__(self):
-        return self.title
 
     def __str__(self):
         return self.title
 
 
-class Painting(Piece, ImagePiece):
-    upload_directory = 'paintings'
+@python_2_unicode_compatible
+class Painting(SortablePiece, VisualPiece):
+    title = models.CharField(max_length=256)
+    date = models.DateField(null=True, blank=True)
+    description = models.TextField(null=True, blank=True)
     medium = models.CharField(max_length=128, null=True, blank=True)
     size = models.CharField(max_length=32, null=True, blank=True)
-
-
-class Exhibition(Piece):
-    thumbnail_upload_directory = 'exhibition_thumbnails'
-    place = models.CharField(max_length=256, default='', null=True, blank=True)
-    thumbnail = models.ImageField(upload_to=thumbnail_upload_directory, null=True, blank=True)
-    exhibition_thumbnail = ImageSpecField(source='thumbnail', format='JPEG', options={'quality': 80}, processors=[Thumbnail(385, 385)])
-
-
-class ExhibitionImage(ImagePiece):
-    upload_directory = 'exhibition_paintings'
-    caption = models.CharField(max_length=256, default='', null=True, blank=True)
-    exhibition = models.ForeignKey(Exhibition, related_name='images')
-    order = models.PositiveIntegerField(default=0)
+    upload_directory = 'paintings'
 
     class Meta:
-        ordering = ('order', )
+        db_table = 'paintings'
+        ordering = ('order',)
 
 
-class Video(Piece):
+    def __str__(self):
+        return self.title
+
+
+@python_2_unicode_compatible
+class Exhibition(SortablePiece):
+    title = models.CharField(max_length=256)
+    date = models.DateField(null=True, blank=True)
+    description = models.TextField(null=True, blank=True)
+    place = models.CharField(max_length=256, default='', null=True, blank=True)
+
+    class Meta:
+        db_table = 'exhibitions'
+        ordering = ('order',)
+
+    def __str__(self):
+        return self.title
+
+
+@python_2_unicode_compatible
+class ExhibitionImage(SortablePiece, VisualPiece):
+    upload_directory = 'exhibition_paintings'
+    caption = models.CharField(max_length=256, default='', null=True, blank=True, help_text='Optional: Caption for the photo.')
+    exhibition = models.ForeignKey(Exhibition, related_name='images')
+
+    class Meta:
+        db_table = 'exhibition_images'
+        ordering = ('order',)
+
+    def __str__(self):
+        return self.caption
+
+
+@python_2_unicode_compatible
+class Video(SortablePiece):
+    title = models.CharField(max_length=256)
+    description = models.TextField(null=True, blank=True)
     video_link = models.URLField()
+
+    class Meta:
+        db_table = 'videos'
+        ordering = ('order',)
 
     def clean(self):
         super(Video, self).clean()
@@ -142,29 +170,29 @@ class Video(Piece):
 
         return youtube_regex_match
 
+    def __str__(self):
+        return self.title
 
-class Word(models.Model):
+
+@python_2_unicode_compatible
+class Word(SortablePiece):
     title = models.CharField(max_length=1024)
     content = models.TextField()
-    featured = models.BooleanField(default=False)
-    sticky = models.BooleanField(default=False)
-    order = models.PositiveIntegerField(default=0)
+    featured = models.BooleanField(default=False, help_text='Make this the default entry.')
+    sticky = models.BooleanField(default=False, help_text='Stick to the top of the list of entries.')
 
     class Meta:
-        ordering = ('order', )
+        db_table = 'words'
+        ordering = ('order',)
 
     def save(self, *args, **kwargs):
         if self.featured:
-            previous_featured_queryset = Word.objects.filter(featured=True)
-            if previous_featured_queryset.exists():
-                previous_featured = previous_featured_queryset.get()
+            previous_featured = Word.objects.filter(featured=True).first()
+            if previous_featured:
                 previous_featured.featured = False
                 previous_featured.save()
 
         return super(Word, self).save(*args, **kwargs)
-
-    def __unicode__(self):
-        return self.title
 
     def __str__(self):
         return self.title

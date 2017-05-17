@@ -1,6 +1,6 @@
 from adminsortable2.admin import SortableAdminMixin, SortableInlineAdminMixin
 from django.contrib import admin
-from paintings.models import Announcement, HomePageImage, Painting, Exhibition, ExhibitionImage, Video, Word
+from paintings.models import Announcement, HomePageBackground, Painting, Exhibition, ExhibitionImage, Video, Word
 
 
 @admin.register(Announcement)
@@ -8,7 +8,7 @@ class AnnouncementsAdmin(admin.ModelAdmin):
     pass
 
 
-@admin.register(HomePageImage)
+@admin.register(HomePageBackground)
 class HomePageImageAdmin(admin.ModelAdmin):
     pass
 

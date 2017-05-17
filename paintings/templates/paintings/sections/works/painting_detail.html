@@ -1,18 +1,12 @@
-{% extends 'paintings/base.html' %}
-{% load staticfiles %}
-
-{% block navigation %}
-    {% with 'works' as active_navigation %}
-        {{ block.super }}
-    {% endwith %}
-{% endblock %}
+{% extends 'paintings/works.html' %}
+{% load static %}
 
 {% block content %}
     <div class="container">
         <div class="row piece-row">
             <div class="col-md-8 piece-area">
-                <img src="{{ object.image_preview.url }}" class="img-responsive" id="zoom_05"
-                     data-zoom-image="{{ object.image.url }}">
+                <img src="{{ painting.image_preview.url }}" class="img-responsive" id="zoom_05"
+                     data-zoom-image="{{ painting.image.url }}">
             </div>
             <div class="col-md-4">
                 <span style="display:block; margin:15px 0; text-align:center;">
@@ -27,12 +21,12 @@
                     </a>
                 </span>
 
-                <h1 class="piece-title">{{ object.title }}</h1>
+                <h1 class="piece-title">{{ painting.title }}</h1>
                 <ul class="piece-info-list">
-                    <li>{{ object.date.year }}</li>
-                    <li>{{ object.medium }}</li>
-                    <li>{{ object.size }}</li>
-                    <li>{{ object.description }}</li>
+                    <li>{{ painting.date.year }}</li>
+                    <li>{{ painting.medium }}</li>
+                    <li>{{ painting.size }}</li>
+                    <li>{{ painting.description }}</li>
                 </ul>
                 <p><a href="#" class="share-link">Share</a></p>
 

@@ -1,4 +1,4 @@
-{% load static from staticfiles %}
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -13,25 +13,35 @@
 </head>
 
 <body>
-{% block navigation %}
-    <!--TOPBAR-->
-    <input id="active-navigation" type="hidden" value="{{ active_navigation }}">
-    <div class="container">
+{% block main-navigation %}
+    <div id="nav-section{% if active_navigation %}-{{ active_navigation }}{% endif %}" class="container">
         <div class="row top-navbar">
             <header class="navbar-header">
-                <!--<button type="button" class="navbar-toggle collapsed" data-toggle="collapse"
-                        data-target="#topnav-toggle-button"><span class="sr-only">Toggle navigation</span> <span
-                        class="icon-bar"></span> <span class="icon-bar"></span> <span class="icon-bar"></span></button>-->
                 <a class="navbar-brand" href="{% url 'home' %}">WOODY SHEPHERD</a>
             </header>
-            <nav class="navbar-links"> <!--class="collapse navbar-collapse" id="topnav-toggle-button"-->
+            <nav class="navbar-links">
                 <ul class="nav navbar-nav navbar-right">
-                    <li id="nav-works"><a href="{% url 'paintings' %}">WORKS</a></li>
-                    <li id="nav-words"><a href="{% url 'featured_word' %}">WORDS</a></li>
-                    <li id="nav-contact"><a href="{% url 'contact' %}">CONTACT</a></li>
-{#                    <li id="nav-shop"><a href="#">SHOP</a></li>#}
+                    {% block navigation_items %}
+                        <li id="nav-works"><a href="{% url 'paintings' %}">WORKS</a></li>
+                        <li id="nav-words"><a href="{% url 'featured_word' %}">WORDS</a></li>
+                        <li id="nav-contact"><a href="{% url 'contact' %}">CONTACT</a></li>
+{#                      <li id="nav-shop"><a href="#">SHOP</a></li>#}
+                    {% endblock %}
                 </ul>
             </nav>
+        </div>
+    </div>
+{% endblock %}
+
+{% block subnavigation %}
+    <div id="subnav-section{% if active_subnavigation %}-{{ active_subnavigation }}{% endif %}" class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <ul class="nav-page-category">
+                    {% block subnavigation-items %}
+                    {% endblock %}
+                </ul>
+            </div>
         </div>
     </div>
 {% endblock %}
@@ -40,7 +50,6 @@
 {% endblock %}
 
 {% block footer %}
-    <!--FOOTER-->
     <footer class="footer">
         <div class="container">
             <div class="row">
@@ -55,12 +64,7 @@
 {% block scripts %}
     <script src="{% static 'paintings/js/libraries/jquery-1.11.3.min.js' %}"></script>
     <script src="{% static 'paintings/js/libraries/bootstrap.min.js' %}"></script>
-    <script>
-        $(document).ready(function(){
-            var activeNavigation = $('#active-navigation').val();
-            $('#nav-' + activeNavigation).addClass('navbar-active');
-        });
-    </script>
 {% endblock %}
+
 </body>
 </html>

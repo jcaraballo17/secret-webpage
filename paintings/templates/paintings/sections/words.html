@@ -1,7 +1,7 @@
 {% extends 'paintings/base.html' %}
-{% load static from staticfiles %}
+{% load static %}
 
-{% block navigation %}
+{% block main-navigation %}
     {% with 'words' as active_navigation %}
         {{ block.super }}
     {% endwith %}
@@ -21,12 +21,12 @@
                         <li class="hidden-xs"><a href="{% url 'words' word.pk %}">{{ word.title }}</a></li>
                     {% endfor %}
 
-                    <li class="visible-xs"><span>View All Words Entries</span></li>
+                    <li class="visible-xs view-all"><span>View All Entries</span></li>
                 </ul>
             </div>
             <div class="col-sm-9 col-md-9 words-container">
-                <h1>{{ object.title }}</h1>
-                <p>{{ object.content }}</p>
+                <h1>{{ word_entry.title }}</h1>
+                <p>{{ word_entry.content }}</p>
             </div>
         </div>
     </div>

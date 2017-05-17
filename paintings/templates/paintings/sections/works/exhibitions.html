@@ -1,8 +1,8 @@
-{% extends 'paintings/base.html' %}
+{% extends 'paintings/gallery.html' %}
 {% load staticfiles %}
 
-{% block navigation %}
-    {% with 'works' as active_navigation %}
+{% block subnavigation %}
+    {% with 'exhibitions' as active_subnavigation %}
         {{ block.super }}
     {% endwith %}
 {% endblock %}
@@ -13,18 +13,17 @@
             <div class="col-sm-3 col-md-3">
                 <span><strong>EXHIBITIONS</strong></span>
                 <ul class="links-list">
-                    <li><strong>EXHIBITIONS</strong></li>
                     {% for exhibition in exhibitions_list %}
                         <li class="hidden-xs"><a href="{% url 'exhibition' exhibition.pk %}">{{ exhibition.title }}</a></li>
                     {% endfor %}
 
-                    <li class="visible-xs"><span>View All Exhibitions</span></li>
+                    <li class="visible-xs view-all"><span>View All Exhibitions</span></li>
                 </ul>
             </div>
             <div class="col-sm-9 col-md-9 exhibition-container">
-                <h3>{{ object.title }}</h3>
-                <span class="exhibition-info"><strong>{{ object.place }}</strong> | {{ object.date }}</span>
-                <p>{{ object.description }}</p>
+                <h3>{{ exhibition.title }}</h3>
+                <span class="exhibition-info"><strong>{{ exhibition.place }}</strong> | {{ exhibition.date }}</span>
+                <p>{{ exhibition.description }}</p>
                 {% for exhibition_image in exhibition.images.all %}
                     <img src="{{ exhibition_image.image.url }}" class="img-responsive"/>
                     <span class="caption-text">{{ exhibition_image.caption }}</span>

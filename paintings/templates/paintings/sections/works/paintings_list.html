@@ -1,15 +1,15 @@
-{% extends 'paintings/works/works.html' %}
-{% load static from staticfiles %}
+{% extends 'paintings/gallery.html' %}
+{% load static %}
 
 
 {% block subnavigation %}
-    {% with 'paintings' as active_category %}
+    {% with 'paintings' as active_subnavigation %}
         {{ block.super }}
     {% endwith %}
 {% endblock %}
 
 
-{% block gallery %}
+{% block gallery-items %}
     <div class="row works-gallery">
         {% for painting in paintings %}
             <div class="col-xs-6 col-sm-4 col-md-3 gallery-thumbnail">
@@ -18,7 +18,7 @@
                 </a>
                 <div class="gallery-thumbnail-bar">
                     <div class="gallery-thumbnail-title">
-                        <a href="#"><span class="text-italic">{{ painting.title }}</span></a>
+                        <a href="{% url 'painting' painting.pk %}"><span class="text-italic">{{ painting.title }}</span></a>
                     </div>
                 </div>
             </div>

@@ -149,7 +149,7 @@ p {
     border: 1px solid rgb(0, 0, 0);
 }
 
-.navbar-header .navbar-toggle:hover{
+.navbar-header .navbar-toggle:hover {
     border: 1px solid rgb(120, 120, 120);
     -webkit-transition: ease-in .15s;
     -moz-transition: ease-in .15s;
@@ -168,21 +168,6 @@ p {
 .icon-bar {
     background-color: rgb(0, 0, 0);
     padding: 2px 0 1px 0;
-}
-
-.navbar-active a, .navbar-active a:active, .navbar-active a:link {
-    background-color: rgb(200, 200, 200);
-    /*color: rgb(221, 221, 221);*/
-    /*border: 1px solid rgb(0,0,0);*/
-}
-
-.navbar-active a:hover {
-    background-color: rgb(200, 200, 200) !important;
-    /*border: 1px solid #bbbbbb !important;*/
-    -webkit-transition: ease-in .15s;
-    -moz-transition: ease-in .15s;
-    -o-transition: ease-in .15s;
-    transition: ease-in .15s;
 }
 
 .navbar-links{
@@ -211,6 +196,39 @@ p {
         margin-top: 0;
     }
 }
+
+#nav-section-works #nav-works a, #nav-section-works #nav-works a:active, #nav-section-works #nav-works a:link,
+#nav-section-words #nav-words a, #nav-section-words #nav-words a:active, #nav-section-words #nav-words a:link,
+#nav-section-contact #nav-contact a, #nav-section-contact #nav-contact a:active, #nav-section-contact #nav-contact a:link {
+    background-color: rgb(200, 200, 200);
+    /*color: rgb(221, 221, 221);*/
+    /*border: 1px solid rgb(0,0,0);*/
+}
+
+
+#nav-section-works #nav-works a:hover,
+#nav-section-words #nav-words a:hover,
+#nav-section-contact #nav-contact a:hover {
+    background-color: rgb(200, 200, 200) !important;
+    /*border: 1px solid #bbbbbb !important;*/
+    -webkit-transition: ease-in .15s;
+    -moz-transition: ease-in .15s;
+    -o-transition: ease-in .15s;
+    transition: ease-in .15s;
+}
+
+#subnav-section-paintings #subnav-paintings,
+#subnav-section-exhibitions #subnav-exhibitions,
+#subnav-section-videos #subnav-videos {
+    font-weight: 700;
+}
+
+#subnav-section-paintings #subnav-paintings:after,
+#subnav-section-exhibitions #subnav-exhibitions:after,
+#subnav-section-videos #subnav-videos:after {
+    font-weight: normal;
+}
+
 
 /* HOME + BACKGROUND */
 .home-background {
@@ -307,14 +325,6 @@ p {
 .nav-page-category li:last-child:after {
     content: "";
     margin-left: 0;
-}
-
-li.nav-category-active:after {
-    font-weight: normal;
-}
-
-li.nav-category-active {
-    font-weight: 700;
 }
 
 .works-gallery {

@@ -1,0 +1,8 @@
+{% extends 'paintings/base.html' %}
+{% load static %}
+
+{% block main-navigation %}
+    {% with 'works' as active_navigation %}
+        {{ block.super }}
+    {% endwith %}
+{% endblock %}

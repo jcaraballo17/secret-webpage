@@ -6,29 +6,31 @@ from paintings.models import Announcement, HomePageImage, Painting, Video, Exhib
 
 
 class HomeView(TemplateView):
-    template_name = "paintings/index.html"
+    template_name = 'paintings/index.html'
 
     def get_context_data(self, **kwargs):
         context = super(HomeView, self).get_context_data(**kwargs)
-        context['announcement'] = Announcement.objects.filter(active=True).first()
+        context['active_announcement'] = Announcement.objects.filter(active=True).first()
         context['background_image'] = HomePageImage.objects.all().order_by('?').first()
         return context
 
 
 class AnnouncementView(DetailView):
     model = Announcement
-    template_name = "paintings/announcement.html"
+    context_object_name = 'announcement'
+    template_name = 'paintings/sections/announcement.html'
 
 
 class PaintingsView(ListView):
     model = Painting
-    template_name = 'paintings/works/paintings.html'
+    template_name = 'paintings/sections/works/paintings_list.html'
     context_object_name = 'paintings'
 
 
 class PaintingDetailView(DetailView):
     model = Painting
-    template_name = "paintings/works/painting.html"
+    context_object_name = 'painting'
+    template_name = 'paintings/sections/works/painting_detail.html'
 
     def get_context_data(self, **kwargs):
         context = super(PaintingDetailView, self).get_context_data(**kwargs)
@@ -38,31 +40,16 @@ class PaintingDetailView(DetailView):
         return context
 
 
-class ExhibitionsView(ListView):
-    model = Exhibition
-    template_name = 'paintings/works/exhibitions.html'
-    context_object_name = 'exhibitions'
-
-    def get_context_data(self, **kwargs):
-        context = super(ExhibitionsView, self).get_context_data(**kwargs)
-        context['exhibitions_list'] = Exhibition.objects.all()
-        return context
-
-
-class ExhibitionDetailView(DetailView):
-    model = Exhibition
-    template_name = "paintings/works/exhibition.html"
-
-
 class VideosView(ListView):
     model = Video
-    template_name = 'paintings/works/videos.html'
+    template_name = 'paintings/sections/works/videos_list.html'
     context_object_name = 'videos'
 
 
 class VideoDetailView(DetailView):
     model = Video
-    template_name = "paintings/works/video.html"
+    context_object_name = 'video'
+    template_name = 'paintings/sections/works/video_detail.html'
 
     def get_context_data(self, **kwargs):
         context = super(VideoDetailView, self).get_context_data(**kwargs)
@@ -72,9 +59,26 @@ class VideoDetailView(DetailView):
         return context
 
 
+class ExhibitionsView(DetailView):
+    model = Exhibition
+    context_object_name = 'exhibition'
+    template_name = 'paintings/sections/works/exhibitions.html'
+
+    def get_context_data(self, **kwargs):
+        context = super(ExhibitionsView, self).get_context_data(**kwargs)
+        context['exhibitions_list'] = Exhibition.objects.all()
+        return context
+
+    def get_object(self, queryset=None):
+        if 'pk' in self.kwargs:
+            return super(ExhibitionsView, self).get_object(queryset)
+        return Exhibition.objects.first()
+
+
 class WordsView(DetailView):
     model = Word
-    template_name = 'paintings/words.html'
+    context_object_name = 'word_entry'
+    template_name = 'paintings/sections/words.html'
 
     def get_context_data(self, **kwargs):
         context = super(WordsView, self).get_context_data(**kwargs)
@@ -91,4 +95,4 @@ class WordsView(DetailView):
 
 
 class ContactView(TemplateView):
-    template_name = "paintings/contact.html"
+    template_name = 'paintings/sections/contact.html'

@@ -1,11 +1,12 @@
 {% extends 'paintings/base.html' %}
-{% load static from staticfiles %}
+{% load static %}
 
-{% block navigation %}
+{% block main-navigation %}
     {% with 'contact' as active_navigation %}
         {{ block.super }}
     {% endwith %}
 {% endblock %}
+
 
 {% block content %}
     <div class="container">
@@ -70,5 +71,4 @@
             </div>
         </div>
     </div>
-
 {% endblock %}

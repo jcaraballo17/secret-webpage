@@ -1,0 +1,13 @@
+appdirs==1.4.3
+Django==1.10.7
+django-admin-sortable2==0.6.11
+django-appconf==1.0.2
+django-imagekit==4.0
+django-unused-media==0.1.6
+olefile==0.44
+packaging==16.8
+pilkit==2.0
+Pillow==4.1.0
+pyparsing==2.2.0
+pytz==2017.2
+six==1.10.0

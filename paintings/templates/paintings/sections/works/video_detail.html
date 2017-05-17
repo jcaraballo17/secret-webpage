@@ -1,5 +1,5 @@
-{% extends 'paintings/base.html' %}
-{% load staticfiles %}
+{% extends 'paintings/works.html' %}
+{% load static %}
 {% load custom_tags %}
 
 {% block navigation %}
@@ -14,7 +14,7 @@
 
             <div class="col-md-12 video-wrapper">
                 <iframe class="embed-responsive-item" width="720" height="540"
-                        src="{{ object.video_link|embed }}" frameborder="0" allowfullscreen>
+                        src="{{ video.video_link|embed }}" frameborder="0" allowfullscreen>
                 </iframe>
             </div>
             <div class="col-md-12">
@@ -31,10 +31,10 @@
                 </span>
             </div>
             <div class="col-md-9">
-                <h1 class="piece-title">{{ object.title }}</h1>
+                <h1 class="piece-title">{{ video.title }}</h1>
                 <ul class="piece-info-list">
-                    <li>{{ object.date.year }}</li>
-                    <li><p>{{ object.description }}</p></li>
+                    <li>{{ video.date.year }}</li>
+                    <li><p>{{ video.description }}</p></li>
                 </ul>
 
                 <p><a href="#" class="share-link">Share</a></p>

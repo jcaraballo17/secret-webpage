@@ -1,16 +1,16 @@
-{% extends 'paintings/works/works.html' %}
-{% load static from staticfiles %}
+{% extends 'paintings/gallery.html' %}
+{% load static %}
 {% load custom_tags %}
 
 
 {% block subnavigation %}
-    {% with 'videos' as active_category %}
+    {% with 'videos' as active_subnavigation %}
         {{ block.super }}
     {% endwith %}
 {% endblock %}
 
 
-{% block gallery %}
+{% block gallery-items %}
     <div class="row works-gallery">
         {% for video in videos %}
             <div class="col-xs-6 col-sm-4 col-md-4 gallery-thumbnail">
@@ -19,7 +19,7 @@
                 </a>
                 <div class="gallery-thumbnail-bar">
                     <div class="gallery-thumbnail-title">
-                        <a href="#"><span class="text-italic">{{ video.title }}</span></a>
+                        <a href="{% url 'video' video.pk %}"><span class="text-italic">{{ video.title }}</span></a>
                     </div>
                 </div>
             </div>

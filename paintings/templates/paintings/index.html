@@ -5,7 +5,7 @@
     {{ block.super }}
     <style>
         .home-background {
-            background-image: url('{{ background_image.image.url }}')
+            background-image: url('{{ background_image.image.url }}');
         }
     </style>
 {% endblock %}
@@ -15,8 +15,14 @@
     <div class="jumbotron home-background">
         <div class="container">
             <div class="row">
-                {% if announcement %}
-                    {% include 'paintings/snippets/announcemets.html' %}
+                {% if active_announcement %}
+                    <section class="col-md-5 home-announcement">
+                        <h2 class="announcement-title"><a href="{% url 'announcement' active_announcement.pk %}">{{ active_announcement.title }}</a></h2>
+                        <span class="announcement-date">{{ active_announcement.date }}</span>
+                        <p class="small">{{ active_announcement.short_description }}</p>
+                        <p class="small"><a href="{% url 'announcement' active_announcement.pk %}">Read full note...</a></p>
+                        <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+                    </section>
                 {% endif %}
             </div>
         </div>

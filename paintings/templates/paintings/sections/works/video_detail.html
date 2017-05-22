@@ -1,6 +1,7 @@
 {% extends 'paintings/works.html' %}
 {% load static %}
-{% load custom_tags %}
+{% load embed_video_tags %}
+{#{% load custom_tags %}#}
 
 {% block navigation %}
     {% with 'works' as active_navigation %}
@@ -13,9 +14,7 @@
         <div class="row piece-row">
 
             <div class="col-md-12 video-wrapper">
-                <iframe class="embed-responsive-item" width="720" height="540"
-                        src="{{ video.video_link|embed }}" frameborder="0" allowfullscreen>
-                </iframe>
+                {% video video.video_link 'large' %}
             </div>
             <div class="col-md-12">
                 <span style="display:block; margin:15px 0; text-align:center;">

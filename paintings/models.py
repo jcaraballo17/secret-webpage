@@ -7,6 +7,7 @@ from django.core.exceptions import ValidationError
 from django.db import models
 from django.utils.six import python_2_unicode_compatible
 from imagekit.models.fields import ImageSpecField
+from embed_video.fields import EmbedVideoField
 
 from paintings.image_processors import RelativeResize, Thumbnail
 
@@ -146,17 +147,17 @@ class ExhibitionImage(SortablePiece, VisualPiece):
 class Video(SortablePiece):
     title = models.CharField(max_length=256)
     description = models.TextField(null=True, blank=True)
-    video_link = models.URLField()
+    video_link = EmbedVideoField()
 
     class Meta:
         db_table = 'videos'
         ordering = ('order',)
 
-    def clean(self):
-        super(Video, self).clean()
-        if not self.youtube_url_validation(self.video_link):
-            raise ValidationError({'video_link': 'Must be a Youtube video.'})
-
+    # def clean(self):
+    #     super(Video, self).clean()
+    #     if not self.youtube_url_validation(self.video_link):
+    #         raise ValidationError({'video_link': 'Must be a Youtube video.'})
+    #
     @staticmethod
     def youtube_url_validation(url):
         youtube_regex = (

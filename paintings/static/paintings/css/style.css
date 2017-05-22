@@ -347,8 +347,14 @@ p {
     border: 0;
 }
 
+.video-thumbnail-container .thumbnail {
+    /* temporary and bad fix. TODO: make all images fit one size. */
+    height: 200px;
+    overflow: hidden;
+}
 
-/*to be removed, no longer needed*/
+
+/* to be removed, no longer needed */
 .thumbnail img:not(:first-child) {
     display: none;
 }

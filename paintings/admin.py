@@ -1,5 +1,7 @@
 from adminsortable2.admin import SortableAdminMixin, SortableInlineAdminMixin
 from django.contrib import admin
+from embed_video.admin import AdminVideoMixin
+
 from paintings.models import Announcement, HomePageBackground, Painting, Exhibition, ExhibitionImage, Video, Word
 
 
@@ -31,7 +33,7 @@ class ExhibitionAdmin(SortableAdminMixin, admin.ModelAdmin):
 
 
 @admin.register(Video)
-class VideoAdmin(SortableAdminMixin, admin.ModelAdmin):
+class VideoAdmin(AdminVideoMixin, SortableAdminMixin, admin.ModelAdmin):
     list_display_links = None
 
 

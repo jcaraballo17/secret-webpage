@@ -37,6 +37,7 @@ INSTALLED_APPS = (
     'django.contrib.staticfiles',
     'django_unused_media',
     'adminsortable2',
+    'embed_video',
     'imagekit',
     'paintings',
 )
@@ -100,3 +101,8 @@ USE_TZ = True
 MEDIA_ROOT = ''
 
 MEDIA_URL = ''
+
+EMBED_VIDEO_BACKENDS = (
+    'embed_video.backends.YoutubeBackend',
+    'embed_video.backends.VimeoBackend',
+)

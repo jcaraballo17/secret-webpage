@@ -1,6 +1,6 @@
 {% extends 'paintings/gallery.html' %}
 {% load static %}
-{% load custom_tags %}
+{% load embed_video_tags %}
 
 
 {% block subnavigation %}
@@ -12,17 +12,19 @@
 
 {% block gallery-items %}
     <div class="row works-gallery">
-        {% for video in videos %}
-            <div class="col-xs-6 col-sm-4 col-md-4 gallery-thumbnail">
-                <a href="{% url 'video' video.pk %}" class="thumbnail">
-                    <img src="{{ video.video_link|youthumbnail }}" alt="...">
+        {% for video_entry in videos %}
+            {% video video_entry.video_link as embed_video %}
+            <div class="col-xs-6 col-sm-4 col-md-4 gallery-thumbnail video-thumbnail-container">
+                <a href="{% url 'video' video_entry.pk %}" class="thumbnail">
+                    <img src="{{ embed_video.thumbnail }}" alt="...">
                 </a>
                 <div class="gallery-thumbnail-bar">
                     <div class="gallery-thumbnail-title">
-                        <a href="{% url 'video' video.pk %}"><span class="text-italic">{{ video.title }}</span></a>
+                        <a href="{% url 'video' video_entry.pk %}"><span class="text-italic">{{ video_entry.title }}</span></a>
                     </div>
                 </div>
             </div>
+            {% endvideo %}
         {% endfor %}
     </div>
 {% endblock %}

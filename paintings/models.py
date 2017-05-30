@@ -153,24 +153,6 @@ class Video(SortablePiece):
         db_table = 'videos'
         ordering = ('order',)
 
-    # def clean(self):
-    #     super(Video, self).clean()
-    #     if not self.youtube_url_validation(self.video_link):
-    #         raise ValidationError({'video_link': 'Must be a Youtube video.'})
-    #
-    @staticmethod
-    def youtube_url_validation(url):
-        youtube_regex = (
-            r'(https?://)?(www\.)?'
-            '(youtube|youtu|youtube-nocookie)\.(com|be)/'
-            '(watch\?.*?(?=v=)v=|embed/|v/|.+\?v=)?([^&=%\?]{11})')
-
-        youtube_regex_match = re.match(youtube_regex, url)
-        if youtube_regex_match:
-            return youtube_regex_match.group(6)
-
-        return youtube_regex_match
-
     def __str__(self):
         return self.title
 

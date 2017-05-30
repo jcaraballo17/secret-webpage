@@ -1,11 +1,17 @@
 {% load static %}
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>{% block page-title %}{% endblock %}Woody Shepherd</title>
+
+    <meta name="description" content="Woody Shepherd is a contemporary painter exhibiting in galleries and museums internationally.">
+    <meta name="keywords" content="woody, shepherd, paint, painting, nature, contemporary, art, exhibitions">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta charset="utf-8">
+
     {% block styles %}
         <link href="{% static 'paintings/css/bootstrap.css' %}" rel="stylesheet">
         <link href="{% static 'paintings/css/style.css' %}" rel="stylesheet">

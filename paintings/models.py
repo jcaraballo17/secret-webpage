@@ -1,3 +1,4 @@
+import os
 import re
 
 import datetime
@@ -10,6 +11,16 @@ from imagekit.models.fields import ImageSpecField
 from embed_video.fields import EmbedVideoField
 
 from paintings.image_processors import RelativeResize, Thumbnail
+
+
+def rename_image_path(instance, filename):
+    extension = filename.split('.')[-1].lower()
+    instance_class = instance.__class__.__name__.lower()
+    image_name = instance.__str__().replace(' ', '-').lower()
+    filename = 'woody-shepherd-%s-%s.%s' % (instance_class, image_name, extension)
+
+    # return the whole path to the file
+    return os.path.join(instance_class, filename)
 
 
 class SortablePiece(models.Model):
@@ -43,9 +54,8 @@ class VisualPiece(models.Model):
     # TODO: sizes should be changed in an admin form. maybe.
     PREVIEW_MAX_SIZE = 720
     ORIGINAL_MAX_SIZE = 1600
-    upload_directory = ''
 
-    image = models.ImageField(upload_to=upload_directory)
+    image = models.ImageField(upload_to=rename_image_path)
     image_thumbnail = ImageSpecField(source='image', format='JPEG', options={'quality': 80}, processors=[Thumbnail(300, 300)])
     image_preview = ImageSpecField(source='image', format='JPEG', options={'quality': 90}, processors=[RelativeResize(PREVIEW_MAX_SIZE)])
 
@@ -63,7 +73,7 @@ class VisualPiece(models.Model):
 @python_2_unicode_compatible
 class HomePageBackground(models.Model):
     name = models.CharField(max_length=256, help_text='Name to identify the background with.')
-    image = models.ImageField(upload_to='homepage_backgrounds')
+    image = models.ImageField(upload_to=rename_image_path)
 
     class Meta:
         db_table = 'homepage_background'
@@ -103,7 +113,6 @@ class Painting(SortablePiece, VisualPiece):
     description = models.TextField(null=True, blank=True)
     medium = models.CharField(max_length=128, null=True, blank=True)
     size = models.CharField(max_length=32, null=True, blank=True)
-    upload_directory = 'paintings'
 
     class Meta:
         db_table = 'paintings'

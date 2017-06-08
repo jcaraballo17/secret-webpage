@@ -140,7 +140,6 @@ class Exhibition(SortablePiece):
 
 @python_2_unicode_compatible
 class ExhibitionImage(SortablePiece, VisualPiece):
-    upload_directory = 'exhibition_paintings'
     caption = models.CharField(max_length=256, default='', null=True, blank=True, help_text='Optional: Caption for the photo.')
     exhibition = models.ForeignKey(Exhibition, related_name='images')
 
@@ -149,7 +148,7 @@ class ExhibitionImage(SortablePiece, VisualPiece):
         ordering = ('order',)
 
     def __str__(self):
-        return self.caption
+        return '%s photo %s' % (self.exhibition.title, self.caption or ''.join(self.image.name.split('.')[:-1]))
 
 
 @python_2_unicode_compatible

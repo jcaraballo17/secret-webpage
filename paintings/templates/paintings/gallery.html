@@ -1,6 +1,8 @@
 {% extends 'paintings/works.html' %}
 {% load static %}
 
+{% block keywords %}{{ block.super }}, gallery{% endblock %}
+
 {% block subnavigation-items %}
     <li id="subnav-paintings"><a href="{% url 'paintings' %}">Paintings</a></li>
     <li id="subnav-exhibitions"><a href="{% url 'exhibitions' %}">Exhibitions</a></li>

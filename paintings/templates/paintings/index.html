@@ -1,5 +1,7 @@
 {% extends 'paintings/base.html' %}
-{% load staticfiles %}
+{% load static %}
+
+{% block keywords %}{{ block.super }}{% endblock %}
 
 {% block styles %}
     {{ block.super }}

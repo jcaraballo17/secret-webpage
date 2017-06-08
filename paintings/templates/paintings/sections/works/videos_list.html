@@ -2,6 +2,7 @@
 {% load static %}
 {% load embed_video_tags %}
 
+{% block keywords %}{{ block.super }}, videos, video{% endblock %}
 
 {% block subnavigation %}
     {% with 'videos' as active_subnavigation %}

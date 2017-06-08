@@ -1,7 +1,9 @@
 {% extends 'paintings/works.html' %}
 {% load static %}
 {% load embed_video_tags %}
-{#{% load custom_tags %}#}
+{% load custom_tags %}
+
+{% block keywords %}{{ block.super }}, video, {{ video|keywords }}{% endblock %}
 
 {% block navigation %}
     {% with 'works' as active_navigation %}

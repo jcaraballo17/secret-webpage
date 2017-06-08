@@ -1,5 +1,8 @@
 {% extends 'paintings/base.html' %}
-{% load staticfiles %}
+{% load static %}
+{% load custom_tags %}
+
+{% block keywords %}{{ block.super }}, announcement, {{ announcement|keywords }}{% endblock %}
 
 {% block content %}
     <div class="container">

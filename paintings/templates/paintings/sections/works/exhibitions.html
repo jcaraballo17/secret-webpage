@@ -1,5 +1,8 @@
 {% extends 'paintings/gallery.html' %}
-{% load staticfiles %}
+{% load static %}
+{% load custom_tags %}
+
+{% block keywords %}{{ block.super }}, exhibitions, exhibition, {{ exhibition|keywords }}{% endblock %}
 
 {% block subnavigation %}
     {% with 'exhibitions' as active_subnavigation %}

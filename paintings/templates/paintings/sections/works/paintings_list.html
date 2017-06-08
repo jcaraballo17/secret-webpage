@@ -1,6 +1,7 @@
 {% extends 'paintings/gallery.html' %}
 {% load static %}
 
+{% block keywords %}{{ block.super }}, paintings, painting{% endblock %}
 
 {% block subnavigation %}
     {% with 'paintings' as active_subnavigation %}

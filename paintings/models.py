@@ -52,11 +52,12 @@ class SortablePiece(models.Model):
 
 class VisualPiece(models.Model):
     # TODO: sizes should be changed in an admin form. maybe.
+    THUMBNAIL_SIZE = 300
     PREVIEW_MAX_SIZE = 720
-    ORIGINAL_MAX_SIZE = 1600
+    ORIGINAL_MAX_SIZE = 1920
 
     image = models.ImageField(upload_to=rename_image_path)
-    image_thumbnail = ImageSpecField(source='image', format='JPEG', options={'quality': 80}, processors=[Thumbnail(300, 300)])
+    image_thumbnail = ImageSpecField(source='image', format='JPEG', options={'quality': 80}, processors=[Thumbnail(THUMBNAIL_SIZE, THUMBNAIL_SIZE)])
     image_preview = ImageSpecField(source='image', format='JPEG', options={'quality': 90}, processors=[RelativeResize(PREVIEW_MAX_SIZE)])
 
     class Meta:
@@ -71,9 +72,8 @@ class VisualPiece(models.Model):
 
 
 @python_2_unicode_compatible
-class HomePageBackground(models.Model):
+class HomePageBackground(VisualPiece):
     name = models.CharField(max_length=256, help_text='Name to identify the background with.')
-    image = models.ImageField(upload_to=rename_image_path)
 
     class Meta:
         db_table = 'homepage_background'
